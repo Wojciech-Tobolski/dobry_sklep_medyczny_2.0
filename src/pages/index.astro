@@ -1,11 +1,267 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/common/Header.astro";
+import Footer from "../components/common/Footer.astro";
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+// Static data for testing
+const featuredProducts = [
+  {
+    id: "1",
+    name: "Laska inwalidzka - Kula łokciowa",
+    slug: "kula-lokciowa",
+    category: "laski",
+    originalPrice: 69.99,
+    salePrice: 45.00,
+    image: "/images/products/kula-lokciowa.jpg",
+    description: "Profesjonalna kula łokciowa z regulacją wysokości",
+    features: [
+      "Regulowana wysokość",
+      "Antypoślizgowa końcówka",
+      "Ergonomiczny uchwyt",
+      "Maksymalne obciążenie: 120kg"
+    ],
+    nfzRefundable: true,
+    nfzRefundPercentage: 80,
+    availability: "dostępny",
+    inStock: true
+  },
+  {
+    id: "2",
+    name: "Stabilizator kostki",
+    slug: "stabilizator-kostki",
+    category: "stabilizatory",
+    originalPrice: 159.00,
+    salePrice: 118.00,
+    image: "/images/products/stabilizator-kostki.jpg",
+    description: "Stabilizator stawu skokowego z szynami bocznymi",
+    features: [
+      "Sztywne szyny boczne",
+      "System sznurowania",
+      "Oddychający materiał",
+      "Rozmiary: S-XL"
+    ],
+    nfzRefundable: true,
+    nfzRefundPercentage: 70,
+    availability: "na zamówienie",
+    inStock: false
+  }
+];
 ---
 
-<Layout>
-	<Welcome />
+<Layout title="Dobry Sklep Medyczny - Profesjonalny sprzęt ortopedyczny i rehabilitacyjny">
+  <Header />
+  
+  <!-- Hero Section -->
+  <section class="bg-primary-500 text-white py-20">
+    <div class="container mx-auto px-4">
+      <div class="flex flex-col lg:flex-row items-center gap-12">
+        <div class="lg:w-1/2">
+          <div class="bg-white/20 inline-block px-4 py-2 rounded-full mb-6">
+            <span class="text-sm font-semibold">Sklep Ortopedyczny</span>
+          </div>
+          <h1 class="text-4xl lg:text-6xl font-bold mb-6 leading-tight">
+            Profesjonalny sprzęt ortopedyczny
+          </h1>
+          <p class="text-xl mb-8 opacity-90 leading-relaxed">
+            Oferujemy szeroki wybór sprzętu rehabilitacyjnego i ortopedycznego najwyższej jakości. 
+            Współpracujemy z NFZ - zapewniamy refundacje i doradztwo specjalistyczne.
+          </p>
+          <div class="flex flex-col sm:flex-row gap-4">
+            <a href="/produkty" class="bg-white text-primary-500 px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition-colors text-center">
+              Zobacz produkty
+            </a>
+            <a href="/kontakt" class="border-2 border-white px-8 py-4 rounded-lg font-semibold hover:bg-white hover:text-primary-500 transition-colors text-center">
+              Skontaktuj się
+            </a>
+          </div>
+          <div class="mt-8 flex items-center space-x-6 text-sm opacity-80">
+            <div class="flex items-center space-x-2">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+              </svg>
+              <span>5000+ zadowolonych klientów</span>
+            </div>
+            <div class="flex items-center space-x-2">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+              </svg>
+              <span>Współpraca z NFZ</span>
+            </div>
+          </div>
+        </div>
+        <div class="lg:w-1/2">
+          <div class="bg-white/10 rounded-2xl p-8 backdrop-blur-sm">
+            <div class="bg-white rounded-xl p-6 shadow-2xl">
+              <div class="text-center">
+                <div class="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <svg class="w-8 h-8 text-primary-500" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"/>
+                  </svg>
+                </div>
+                <h3 class="text-lg font-semibold text-gray-800 mb-2">Szeroki wybór produktów</h3>
+                <p class="text-gray-600 text-sm">Laski, stabilizatory, protezy, wózki i balkoniki</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Products -->
+  <section class="py-16 bg-gray-50">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl lg:text-4xl font-bold text-gray-800 mb-4">
+          Profesjonalny sprzęt ortopedyczny
+        </h2>
+        <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+          Oferujemy najwyższej jakości sprzęt rehabilitacyjny i ortopedyczny od sprawdzonych producentów
+        </p>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {featuredProducts.map((product) => (
+          <div class="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden">
+            <!-- Product Image -->
+            <div class="relative">
+              <img 
+                src={product.image} 
+                alt={product.name}
+                class="w-full h-48 object-cover"
+                loading="lazy"
+              />
+              <div class="absolute top-3 left-3">
+                <div class={`inline-flex items-center space-x-2 px-3 py-1 rounded-full ${
+                  product.availability === 'dostępny' ? 'bg-green-100' : 
+                  product.availability === 'na zamówienie' ? 'bg-yellow-100' : 'bg-red-100'
+                }`}>
+                  <div class={`w-2 h-2 rounded-full ${
+                    product.availability === 'dostępny' ? 'bg-green-500' : 
+                    product.availability === 'na zamówienie' ? 'bg-yellow-500' : 'bg-red-500'
+                  }`}></div>
+                </div>
+              </div>
+              {product.nfzRefundable && (
+                <div class="absolute top-3 right-3">
+                  <div class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full font-medium">
+                    NFZ {product.nfzRefundPercentage}%
+                  </div>
+                </div>
+              )}
+            </div>
+
+            <!-- Product Info -->
+            <div class="p-4">
+              <h3 class="font-bold text-gray-800 mb-2 line-clamp-2 h-12">
+                {product.name}
+              </h3>
+              
+              <!-- Pricing -->
+              <div class="mb-4">
+                <div class="flex items-center space-x-2">
+                  <p class="text-gray-400 line-through text-sm">{product.originalPrice.toFixed(2)} zł</p>
+                  <p class="text-2xl font-bold text-primary-500">{product.salePrice.toFixed(2)} zł</p>
+                </div>
+                <p class="text-sm text-primary-500 font-medium">
+                  Oszczędzasz {(product.originalPrice - product.salePrice).toFixed(2)} zł ({Math.round(((product.originalPrice - product.salePrice) / product.originalPrice) * 100)}%)
+                </p>
+              </div>
+
+              <!-- Availability -->
+              <div class="mb-4">
+                <div class={`inline-flex items-center space-x-2 px-3 py-1 rounded-full ${
+                  product.availability === 'dostępny' ? 'bg-green-100' : 
+                  product.availability === 'na zamówienie' ? 'bg-yellow-100' : 'bg-red-100'
+                }`}>
+                  <div class={`w-2 h-2 rounded-full ${
+                    product.availability === 'dostępny' ? 'bg-green-500' : 
+                    product.availability === 'na zamówienie' ? 'bg-yellow-500' : 'bg-red-500'
+                  }`}></div>
+                  <span class={`text-sm font-medium ${
+                    product.availability === 'dostępny' ? 'text-green-700' : 
+                    product.availability === 'na zamówienie' ? 'text-yellow-700' : 'text-red-700'
+                  }`}>
+                    {product.availability === 'dostępny' ? 'Dostępny' : 
+                     product.availability === 'na zamówienie' ? 'Na zamówienie' : 'Brak w magazynie'}
+                  </span>
+                </div>
+              </div>
+
+              <!-- Action Button -->
+              <a 
+                href={`/produkty/${product.slug}`}
+                class="w-full bg-primary-500 text-white py-3 px-4 rounded-lg hover:bg-primary-600 transition-colors font-semibold text-center block"
+              >
+                Zobacz szczegóły
+              </a>
+            </div>
+          </div>
+        ))}
+      </div>
+      
+      <div class="text-center mt-12">
+        <a href="/produkty" class="btn-primary">
+          Zobacz wszystkie produkty
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Choose Us -->
+  <section class="py-16 bg-primary-50">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl lg:text-4xl font-bold text-gray-800 mb-4">
+          Dlaczego warto wybrać nasz sklep?
+        </h2>
+        <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+          Specjalizujemy się w sprzęcie ortopedycznym i rehabilitacyjnym od ponad 10 lat
+        </p>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="text-center">
+          <div class="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg class="w-8 h-8 text-primary-500" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold text-gray-800 mb-2">Współpraca z NFZ</h3>
+          <p class="text-gray-600">Zapewniamy refundacje NFZ i pomagamy w załatwianiu formalności</p>
+        </div>
+        
+        <div class="text-center">
+          <div class="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg class="w-8 h-8 text-primary-500" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold text-gray-800 mb-2">Doradztwo specjalistyczne</h3>
+          <p class="text-gray-600">Pomagamy w doborze odpowiedniego sprzętu i udzielamy fachowych porad</p>
+        </div>
+        
+        <div class="text-center">
+          <div class="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg class="w-8 h-8 text-primary-500" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"/>
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold text-gray-800 mb-2">Gwarancja jakości</h3>
+          <p class="text-gray-600">Wszystkie produkty posiadają gwarancję producenta i certyfikaty CE</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Footer />
 </Layout>
+
+<style>
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+</style>

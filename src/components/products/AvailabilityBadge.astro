@@ -1,0 +1,45 @@
+---
+export interface Props {
+  availability: "dostępny" | "na zamówienie" | "brak";
+  showText?: boolean;
+}
+
+const { availability, showText = true } = Astro.props;
+
+const availabilityConfig = {
+  dostępny: {
+    color: "bg-green-500",
+    textColor: "text-green-700",
+    bgColor: "bg-green-100",
+    text: "Dostępny",
+  },
+  "na zamówienie": {
+    color: "bg-yellow-500",
+    textColor: "text-yellow-700",
+    bgColor: "bg-yellow-100",
+    text: "Na zamówienie",
+  },
+  brak: {
+    color: "bg-red-500",
+    textColor: "text-red-700",
+    bgColor: "bg-red-100",
+    text: "Brak w magazynie",
+  },
+};
+
+const config = availabilityConfig[availability];
+---
+
+<div
+  class={`inline-flex items-center space-x-2 px-3 py-1 rounded-full ${config.bgColor}`}
+>
+  <div class={`w-2 h-2 rounded-full ${config.color}`}></div>
+  {
+    showText && (
+      <span class={`text-sm font-medium ${config.textColor}`}>
+        {config.text}
+      </span>
+    )
+  }
+</div>
+

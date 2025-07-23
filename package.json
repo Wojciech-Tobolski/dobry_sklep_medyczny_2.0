@@ -2,15 +2,37 @@
   "name": "sklep-ortopedyczny",
   "type": "module",
   "version": "0.0.1",
+  "description": "Sklep ortopedyczny Dobry Sklep Medyczny - profesjonalny sprzęt ortopedyczny i rehabilitacyjny",
   "scripts": {
     "dev": "astro dev",
+    "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro"
   },
   "dependencies": {
-    "@tailwindcss/vite": "^4.1.11",
+    "@astrojs/tailwind": "^5.1.0",
     "astro": "^5.12.2",
-    "tailwindcss": "^4.1.11"
-  }
+    "tailwindcss": "^3.4.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.30",
+    "typescript": "^5.4.3"
+  },
+  "keywords": [
+    "ortopedyczny",
+    "sklep",
+    "medyczny",
+    "rehabilitacja",
+    "sprzęt",
+    "NFZ",
+    "refundacja"
+  ],
+  "author": "Dobry Sklep Medyczny",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Wojciech-Tobolski/dobry_sklep_medyczny_2.0.git"
+  },
+  "homepage": "https://dobrysklepmedyczny.com"
 }

@@ -1,11 +1,16 @@
 // @ts-check
-import { defineConfig } from 'astro/config';
-
-import tailwindcss from '@tailwindcss/vite';
+import { defineConfig } from "astro/config";
+import tailwind from "@astrojs/tailwind";
 
 // https://astro.build/config
 export default defineConfig({
-  vite: {
-    plugins: [tailwindcss()]
-  }
+  site: "https://dobrysklepmedyczny.com",
+  integrations: [tailwind()],
+  build: {
+    assets: "assets",
+  },
+  server: {
+    port: 4321,
+    host: true,
+  },
 });
