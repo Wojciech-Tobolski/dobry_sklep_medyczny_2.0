@@ -54,6 +54,7 @@ const savingsPercent = Math.round((savings / originalPrice) * 100);
                   <button
                     id={`prevImage-${modalId}`}
                     class="absolute left-2 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-80 hover:bg-opacity-100 rounded-full p-2 shadow-lg transition-all"
+                    onclick={`prevImage('${modalId}')`}
                   >
                     <svg
                       class="w-6 h-6 text-gray-700"
@@ -72,6 +73,7 @@ const savingsPercent = Math.round((savings / originalPrice) * 100);
                   <button
                     id={`nextImage-${modalId}`}
                     class="absolute right-2 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-80 hover:bg-opacity-100 rounded-full p-2 shadow-lg transition-all"
+                    onclick={`nextImage('${modalId}')`}
                   >
                     <svg
                       class="w-6 h-6 text-gray-700"
@@ -272,95 +274,6 @@ const savingsPercent = Math.round((savings / originalPrice) * 100);
 
   // Modal is now handled by global function
 
-  // Image gallery functionality
-  let currentImageIndex = 0;
-  let productImages = [];
-
-  function changeMainImage(modalIdParam, src) {
-    const mainImage = document.getElementById(`mainImage-${modalIdParam}`);
-    if (mainImage) {
-      mainImage.src = src;
-      // Update current index
-      const index = productImages.indexOf(src);
-      if (index !== -1) {
-        currentImageIndex = index;
-        updateThumbnailSelection();
-      }
-    }
-  }
-
-  function nextImage() {
-    if (productImages.length > 1) {
-      currentImageIndex = (currentImageIndex + 1) % productImages.length;
-      changeMainImage(productImages[currentImageIndex]);
-    }
-  }
-
-  function prevImage() {
-    if (productImages.length > 1) {
-      currentImageIndex =
-        (currentImageIndex - 1 + productImages.length) % productImages.length;
-      changeMainImage(productImages[currentImageIndex]);
-    }
-  }
-
-  function updateThumbnailSelection() {
-    // Remove active class from all thumbnails in this modal
-    const modal = document.getElementById(modalId);
-    if (modal) {
-      modal.querySelectorAll("[data-index]").forEach((thumb) => {
-        thumb.classList.remove("border-primary-500");
-        thumb.classList.add("border-transparent");
-      });
-
-      // Add active class to current thumbnail
-      const activeThumb = modal.querySelector(
-        `[data-index="${currentImageIndex}"]`
-      );
-      if (activeThumb) {
-        activeThumb.classList.remove("border-transparent");
-        activeThumb.classList.add("border-primary-500");
-      }
-    }
-  }
-
-  // Initialize image gallery when modal opens
-  function initImageGallery() {
-    const images = product.images || [];
-    productImages = [
-      product.mainImage || "/images/products/placeholder.jpg",
-      ...images,
-    ];
-    currentImageIndex = 0;
-
-    // Add event listeners for navigation buttons
-    document
-      .getElementById(`nextImage-${modalId}`)
-      ?.addEventListener("click", nextImage);
-    document
-      .getElementById(`prevImage-${modalId}`)
-      ?.addEventListener("click", prevImage);
-
-    // Initialize thumbnail selection
-    updateThumbnailSelection();
-  }
-
-  // Initialize this modal's gallery when it opens
-  const modal = document.getElementById(modalId);
-  if (modal) {
-    const observer = new MutationObserver((mutations) => {
-      mutations.forEach((mutation) => {
-        if (
-          mutation.type === "attributes" &&
-          mutation.attributeName === "class"
-        ) {
-          if (!modal.classList.contains("hidden")) {
-            initImageGallery();
-          }
-        }
-      });
-    });
-
-    observer.observe(modal, { attributes: true });
-  }
+  // Modal is now handled by global functions
+  // Image gallery functionality is handled by global functions in index.astro
 </script>

@@ -655,7 +655,7 @@ import ProductCarousel from "../components/sections/ProductCarousel.astro";
     }
   });
 
-  // Globalna funkcja do zmiany głównego zdjęcia w galerii
+  // Globalne funkcje galerii zdjęć
   (window as any).changeMainImage = function (modalId: string, src: string) {
     const mainImage = document.getElementById(
       `mainImage-${modalId}`
@@ -664,6 +664,83 @@ import ProductCarousel from "../components/sections/ProductCarousel.astro";
       mainImage.src = src;
     }
   };
+
+  // Funkcje nawigacji galerii
+  (window as any).nextImage = function (modalId: string) {
+    const modal = document.getElementById(modalId);
+    if (!modal) return;
+
+    const images = modal.querySelectorAll("[data-index]");
+    const mainImage = document.getElementById(
+      `mainImage-${modalId}`
+    ) as HTMLImageElement;
+    if (!mainImage || images.length === 0) return;
+
+    const currentSrc = mainImage.src;
+    let currentIndex = -1;
+
+    // Znajdź aktualny indeks
+    images.forEach((img, index) => {
+      if ((img as HTMLImageElement).src === currentSrc) {
+        currentIndex = index;
+      }
+    });
+
+    // Przejdź do następnego zdjęcia
+    const nextIndex = (currentIndex + 1) % images.length;
+    const nextImage = images[nextIndex] as HTMLImageElement;
+    if (nextImage) {
+      mainImage.src = nextImage.src;
+      updateThumbnailSelection(modalId, nextIndex);
+    }
+  };
+
+  (window as any).prevImage = function (modalId: string) {
+    const modal = document.getElementById(modalId);
+    if (!modal) return;
+
+    const images = modal.querySelectorAll("[data-index]");
+    const mainImage = document.getElementById(
+      `mainImage-${modalId}`
+    ) as HTMLImageElement;
+    if (!mainImage || images.length === 0) return;
+
+    const currentSrc = mainImage.src;
+    let currentIndex = -1;
+
+    // Znajdź aktualny indeks
+    images.forEach((img, index) => {
+      if ((img as HTMLImageElement).src === currentSrc) {
+        currentIndex = index;
+      }
+    });
+
+    // Przejdź do poprzedniego zdjęcia
+    const prevIndex = (currentIndex - 1 + images.length) % images.length;
+    const prevImage = images[prevIndex] as HTMLImageElement;
+    if (prevImage) {
+      mainImage.src = prevImage.src;
+      updateThumbnailSelection(modalId, prevIndex);
+    }
+  };
+
+  function updateThumbnailSelection(modalId: string, activeIndex: number) {
+    const modal = document.getElementById(modalId);
+    if (!modal) return;
+
+    // Usuń aktywną klasę ze wszystkich miniatur
+    modal.querySelectorAll("[data-index]").forEach((thumb) => {
+      thumb.classList.remove("border-primary-500");
+      thumb.classList.add("border-transparent");
+    });
+
+    // Dodaj aktywną klasę do aktualnej miniatury
+    const activeThumb = modal.querySelector(`[data-index="${activeIndex}"]`);
+    if (activeThumb) {
+      activeThumb.classList.remove("border-transparent");
+      activeThumb.classList.add("border-primary-500");
+    }
+  }
 </script>
 
 <style>
