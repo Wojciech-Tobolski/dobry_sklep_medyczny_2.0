@@ -595,7 +595,7 @@ import ProductCarousel from "../components/sections/ProductCarousel.astro";
 
 <script>
   // Globalna funkcja do otwierania modali produktów
-  window.openProductModal = function (modalId) {
+  (window as any).openProductModal = function (modalId: string) {
     console.log("Otwieram modal:", modalId);
     const modal = document.getElementById(modalId);
     if (modal) {
@@ -608,7 +608,7 @@ import ProductCarousel from "../components/sections/ProductCarousel.astro";
   };
 
   // Zamykanie modali
-  window.closeProductModal = function (modalId) {
+  (window as any).closeProductModal = function (modalId: string) {
     const modal = document.getElementById(modalId);
     if (modal) {
       modal.classList.add("hidden");
@@ -619,10 +619,11 @@ import ProductCarousel from "../components/sections/ProductCarousel.astro";
   // Event listenery dla przycisków "Zobacz szczegóły"
   document.addEventListener("DOMContentLoaded", function () {
     document.addEventListener("click", function (e) {
-      if (e.target.classList.contains("product-detail-btn")) {
-        const modalId = e.target.getAttribute("data-modal-id");
+      const target = e.target as HTMLElement;
+      if (target && target.classList.contains("product-detail-btn")) {
+        const modalId = target.getAttribute("data-modal-id");
         if (modalId) {
-          openProductModal(modalId);
+          (window as any).openProductModal(modalId);
         }
       }
     });
@@ -630,11 +631,13 @@ import ProductCarousel from "../components/sections/ProductCarousel.astro";
 
   // Zamykanie modali po kliknięciu poza nimi
   document.addEventListener("click", function (e) {
+    const target = e.target as HTMLElement;
     if (
-      e.target.classList.contains("fixed") &&
-      e.target.classList.contains("bg-black")
+      target &&
+      target.classList.contains("fixed") &&
+      target.classList.contains("bg-black")
     ) {
-      e.target.classList.add("hidden");
+      target.classList.add("hidden");
       document.body.style.overflow = "auto";
     }
   });
@@ -651,6 +654,16 @@ import ProductCarousel from "../components/sections/ProductCarousel.astro";
       });
     }
   });
+
+  // Globalna funkcja do zmiany głównego zdjęcia w galerii
+  (window as any).changeMainImage = function (modalId: string, src: string) {
+    const mainImage = document.getElementById(
+      `mainImage-${modalId}`
+    ) as HTMLImageElement;
+    if (mainImage) {
+      mainImage.src = src;
+    }
+  };
 </script>
 
 <style>

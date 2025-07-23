@@ -27,7 +27,7 @@ const savingsPercent = Math.round((savings / originalPrice) * 100);
         {product.name || product.title}
       </h2>
       <button
-        id="closeModal"
+        id={`closeModal-${modalId}`}
         class="text-gray-500 hover:text-gray-700 text-2xl font-bold"
       >
         ×
@@ -42,7 +42,7 @@ const savingsPercent = Math.round((savings / originalPrice) * 100);
           <!-- Main Image Container -->
           <div class="relative">
             <img
-              id="mainImage"
+              id={`mainImage-${modalId}`}
               src={product.mainImage || "/images/products/placeholder.jpg"}
               alt={product.name || product.title}
               class="w-full h-80 object-contain bg-gray-100 rounded-lg"
@@ -52,7 +52,7 @@ const savingsPercent = Math.round((savings / originalPrice) * 100);
               product.images && product.images.length > 1 && (
                 <>
                   <button
-                    id="prevImage"
+                    id={`prevImage-${modalId}`}
                     class="absolute left-2 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-80 hover:bg-opacity-100 rounded-full p-2 shadow-lg transition-all"
                   >
                     <svg
@@ -70,7 +70,7 @@ const savingsPercent = Math.round((savings / originalPrice) * 100);
                     </svg>
                   </button>
                   <button
-                    id="nextImage"
+                    id={`nextImage-${modalId}`}
                     class="absolute right-2 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-80 hover:bg-opacity-100 rounded-full p-2 shadow-lg transition-all"
                   >
                     <svg
@@ -102,7 +102,7 @@ const savingsPercent = Math.round((savings / originalPrice) * 100);
                     alt={`${product.name || product.title} - zdjęcie ${index + 1}`}
                     class="w-20 h-20 object-cover rounded cursor-pointer hover:opacity-75 border-2 border-transparent hover:border-primary-500 transition-all flex-shrink-0"
                     data-index={index}
-                    onclick="changeMainImage(this.src)"
+                    onclick={`changeMainImage('${modalId}', this.src)`}
                   />
                 ))}
               </div>
@@ -257,9 +257,11 @@ const savingsPercent = Math.round((savings / originalPrice) * 100);
   });
 
   // Close modal with close button
-  document.getElementById("closeModal")?.addEventListener("click", () => {
-    closeProductModal(modalId);
-  });
+  document
+    .getElementById(`closeModal-${modalId}`)
+    ?.addEventListener("click", () => {
+      closeProductModal(modalId);
+    });
 
   // Close modal with Escape key
   document.addEventListener("keydown", (e) => {
@@ -274,8 +276,8 @@ const savingsPercent = Math.round((savings / originalPrice) * 100);
   let currentImageIndex = 0;
   let productImages = [];
 
-  function changeMainImage(src) {
-    const mainImage = document.getElementById("mainImage");
+  function changeMainImage(modalIdParam, src) {
+    const mainImage = document.getElementById(`mainImage-${modalIdParam}`);
     if (mainImage) {
       mainImage.src = src;
       // Update current index
@@ -303,19 +305,22 @@ const savingsPercent = Math.round((savings / originalPrice) * 100);
   }
 
   function updateThumbnailSelection() {
-    // Remove active class from all thumbnails
-    document.querySelectorAll("[data-index]").forEach((thumb) => {
-      thumb.classList.remove("border-primary-500");
-      thumb.classList.add("border-transparent");
-    });
+    // Remove active class from all thumbnails in this modal
+    const modal = document.getElementById(modalId);
+    if (modal) {
+      modal.querySelectorAll("[data-index]").forEach((thumb) => {
+        thumb.classList.remove("border-primary-500");
+        thumb.classList.add("border-transparent");
+      });
 
-    // Add active class to current thumbnail
-    const activeThumb = document.querySelector(
-      `[data-index="${currentImageIndex}"]`
-    );
-    if (activeThumb) {
-      activeThumb.classList.remove("border-transparent");
-      activeThumb.classList.add("border-primary-500");
+      // Add active class to current thumbnail
+      const activeThumb = modal.querySelector(
+        `[data-index="${currentImageIndex}"]`
+      );
+      if (activeThumb) {
+        activeThumb.classList.remove("border-transparent");
+        activeThumb.classList.add("border-primary-500");
+      }
     }
   }
 
@@ -329,8 +334,12 @@ const savingsPercent = Math.round((savings / originalPrice) * 100);
     currentImageIndex = 0;
 
     // Add event listeners for navigation buttons
-    document.getElementById("nextImage")?.addEventListener("click", nextImage);
-    document.getElementById("prevImage")?.addEventListener("click", prevImage);
+    document
+      .getElementById(`nextImage-${modalId}`)
+      ?.addEventListener("click", nextImage);
+    document
+      .getElementById(`prevImage-${modalId}`)
+      ?.addEventListener("click", prevImage);
 
     // Initialize thumbnail selection
     updateThumbnailSelection();
