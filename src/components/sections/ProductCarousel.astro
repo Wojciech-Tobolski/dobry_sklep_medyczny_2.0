@@ -1,0 +1,173 @@
+---
+import { getCollection } from "astro:content";
+import ProductCard from "../products/ProductCard.astro";
+import ProductModal from "../products/ProductModal.astro";
+
+const products = await getCollection("products");
+const featuredProducts = products.slice(0, 8); // Pokaż pierwsze 8 produktów
+---
+
+<section class="py-16 bg-gray-50">
+  <div class="container mx-auto px-4">
+    <div class="text-center mb-12">
+      <h2 class="text-3xl lg:text-4xl font-bold text-gray-800 mb-4">
+        Profesjonalny sprzęt ortopedyczny
+      </h2>
+      <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+        Oferujemy najwyższej jakości sprzęt rehabilitacyjny i ortopedyczny od
+        sprawdzonych producentów
+      </p>
+    </div>
+
+    <!-- Carousel Container -->
+    <div class="relative">
+      <!-- Navigation Buttons -->
+      <button
+        id="prevBtn"
+        class="absolute left-0 top-1/2 transform -translate-y-1/2 z-10 bg-white rounded-full p-3 shadow-lg hover:shadow-xl transition-shadow duration-200 border border-gray-200"
+        aria-label="Poprzednie produkty"
+      >
+        <svg
+          class="w-6 h-6 text-gray-600"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M15 19l-7-7 7-7"></path>
+        </svg>
+      </button>
+
+      <button
+        id="nextBtn"
+        class="absolute right-0 top-1/2 transform -translate-y-1/2 z-10 bg-white rounded-full p-3 shadow-lg hover:shadow-xl transition-shadow duration-200 border border-gray-200"
+        aria-label="Następne produkty"
+      >
+        <svg
+          class="w-6 h-6 text-gray-600"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M9 5l7 7-7 7"></path>
+        </svg>
+      </button>
+
+      <!-- Products Container -->
+      <div
+        id="productsCarousel"
+        class="flex gap-6 overflow-x-auto scrollbar-hide scroll-smooth pb-4"
+        style="scroll-snap-type: x mandatory;"
+      >
+        {
+          featuredProducts.map((product) => (
+            <div
+              class="flex-shrink-0 w-full sm:w-1/2 lg:w-1/4"
+              style="scroll-snap-align: start;"
+            >
+              <ProductCard product={product.data} slug={product.slug} />
+            </div>
+          ))
+        }
+      </div>
+    </div>
+
+    <!-- View All Products Button -->
+    <div class="text-center mt-12">
+      <a href="/produkty" class="btn-primary"> Zobacz wszystkie produkty → </a>
+    </div>
+  </div>
+
+  <!-- Product Modal -->
+  {
+    featuredProducts.map((product) => (
+      <ProductModal
+        product={product.data}
+        modalId={`modal-${product.slug || product.data.slug || "product"}`}
+      />
+    ))
+  }
+</section>
+
+<style>
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+</style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const carousel = document.getElementById("productsCarousel");
+    const prevBtn = document.getElementById("prevBtn");
+    const nextBtn = document.getElementById("nextBtn");
+
+    if (!carousel || !prevBtn || !nextBtn) return;
+
+    const scrollAmount = 300; // Dostosuj według potrzeb
+
+    // Touch/swipe support
+    let isDown = false;
+    let startX;
+    let scrollLeft;
+
+    carousel.addEventListener("mousedown", (e) => {
+      isDown = true;
+      carousel.style.cursor = "grabbing";
+      startX = e.pageX - carousel.offsetLeft;
+      scrollLeft = carousel.scrollLeft;
+    });
+
+    carousel.addEventListener("mouseleave", () => {
+      isDown = false;
+      carousel.style.cursor = "grab";
+    });
+
+    carousel.addEventListener("mouseup", () => {
+      isDown = false;
+      carousel.style.cursor = "grab";
+    });
+
+    carousel.addEventListener("mousemove", (e) => {
+      if (!isDown) return;
+      e.preventDefault();
+      const x = e.pageX - carousel.offsetLeft;
+      const walk = (x - startX) * 2;
+      carousel.scrollLeft = scrollLeft - walk;
+    });
+
+    // Navigation buttons
+    prevBtn.addEventListener("click", () => {
+      carousel.scrollBy({
+        left: -scrollAmount,
+        behavior: "smooth",
+      });
+    });
+
+    nextBtn.addEventListener("click", () => {
+      carousel.scrollBy({
+        left: scrollAmount,
+        behavior: "smooth",
+      });
+    });
+
+    // Keyboard navigation
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowLeft") {
+        prevBtn.click();
+      } else if (e.key === "ArrowRight") {
+        nextBtn.click();
+      }
+    });
+  });
+</script>

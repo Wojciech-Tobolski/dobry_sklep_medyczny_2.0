@@ -1,0 +1,13 @@
+---
+import { getCollection } from "astro:content";
+
+const products = await getCollection("products");
+---
+
+<html>
+  <body>
+    <h1>Products Test</h1>
+    {products.map((product) => <div>{product.data.title}</div>)}
+  </body>
+</html>
+

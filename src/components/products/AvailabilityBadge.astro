@@ -1,13 +1,19 @@
 ---
 export interface Props {
-  availability: "dostępny" | "na zamówienie" | "brak";
+  availability?: "dostępny" | "na zamówienie" | "brak" | "available";
   showText?: boolean;
 }
 
-const { availability, showText = true } = Astro.props;
+const { availability = "available", showText = true } = Astro.props;
 
 const availabilityConfig = {
   dostępny: {
+    color: "bg-green-500",
+    textColor: "text-green-700",
+    bgColor: "bg-green-100",
+    text: "Dostępny",
+  },
+  available: {
     color: "bg-green-500",
     textColor: "text-green-700",
     bgColor: "bg-green-100",
@@ -27,7 +33,7 @@ const availabilityConfig = {
   },
 };
 
-const config = availabilityConfig[availability];
+const config = availabilityConfig[availability] || availabilityConfig.available;
 ---
 
 <div
@@ -42,4 +48,3 @@ const config = availabilityConfig[availability];
     )
   }
 </div>
-

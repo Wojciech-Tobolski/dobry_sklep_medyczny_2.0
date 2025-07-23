@@ -2,55 +2,14 @@
 import Layout from "../layouts/Layout.astro";
 import Header from "../components/common/Header.astro";
 import Footer from "../components/common/Footer.astro";
-
-// Static data for testing
-const featuredProducts = [
-  {
-    id: "1",
-    name: "Laska inwalidzka - Kula łokciowa",
-    slug: "kula-lokciowa",
-    category: "laski",
-    originalPrice: 69.99,
-    salePrice: 45.00,
-    image: "/images/products/kula-lokciowa.jpg",
-    description: "Profesjonalna kula łokciowa z regulacją wysokości",
-    features: [
-      "Regulowana wysokość",
-      "Antypoślizgowa końcówka",
-      "Ergonomiczny uchwyt",
-      "Maksymalne obciążenie: 120kg"
-    ],
-    nfzRefundable: true,
-    nfzRefundPercentage: 80,
-    availability: "dostępny",
-    inStock: true
-  },
-  {
-    id: "2",
-    name: "Stabilizator kostki",
-    slug: "stabilizator-kostki",
-    category: "stabilizatory",
-    originalPrice: 159.00,
-    salePrice: 118.00,
-    image: "/images/products/stabilizator-kostki.jpg",
-    description: "Stabilizator stawu skokowego z szynami bocznymi",
-    features: [
-      "Sztywne szyny boczne",
-      "System sznurowania",
-      "Oddychający materiał",
-      "Rozmiary: S-XL"
-    ],
-    nfzRefundable: true,
-    nfzRefundPercentage: 70,
-    availability: "na zamówienie",
-    inStock: false
-  }
-];
+import ProductCarousel from "../components/sections/ProductCarousel.astro";
 ---
 
-<Layout title="Dobry Sklep Medyczny - Profesjonalny sprzęt ortopedyczny i rehabilitacyjny">
+<Layout
+  title="Dobry Sklep Medyczny - Profesjonalny sprzęt ortopedyczny i rehabilitacyjny"
+>
   <Header />
-  
+
   <!-- Hero Section -->
   <section class="bg-primary-500 text-white py-20">
     <div class="container mx-auto px-4">
@@ -63,27 +22,40 @@ const featuredProducts = [
             Profesjonalny sprzęt ortopedyczny
           </h1>
           <p class="text-xl mb-8 opacity-90 leading-relaxed">
-            Oferujemy szeroki wybór sprzętu rehabilitacyjnego i ortopedycznego najwyższej jakości. 
-            Współpracujemy z NFZ - zapewniamy refundacje i doradztwo specjalistyczne.
+            Oferujemy szeroki wybór sprzętu rehabilitacyjnego i ortopedycznego
+            najwyższej jakości. Współpracujemy z NFZ - zapewniamy refundacje i
+            doradztwo specjalistyczne.
           </p>
           <div class="flex flex-col sm:flex-row gap-4">
-            <a href="/produkty" class="bg-white text-primary-500 px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition-colors text-center">
+            <a
+              href="/produkty"
+              class="bg-white text-primary-500 px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition-colors text-center"
+            >
               Zobacz produkty
             </a>
-            <a href="/kontakt" class="border-2 border-white px-8 py-4 rounded-lg font-semibold hover:bg-white hover:text-primary-500 transition-colors text-center">
+            <a
+              href="/kontakt"
+              class="border-2 border-white px-8 py-4 rounded-lg font-semibold hover:bg-white hover:text-primary-500 transition-colors text-center"
+            >
               Skontaktuj się
             </a>
           </div>
           <div class="mt-8 flex items-center space-x-6 text-sm opacity-80">
             <div class="flex items-center space-x-2">
               <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                <path
+                  fill-rule="evenodd"
+                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                  clip-rule="evenodd"></path>
               </svg>
               <span>5000+ zadowolonych klientów</span>
             </div>
             <div class="flex items-center space-x-2">
               <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                <path
+                  fill-rule="evenodd"
+                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                  clip-rule="evenodd"></path>
               </svg>
               <span>Współpraca z NFZ</span>
             </div>
@@ -93,13 +65,26 @@ const featuredProducts = [
           <div class="bg-white/10 rounded-2xl p-8 backdrop-blur-sm">
             <div class="bg-white rounded-xl p-6 shadow-2xl">
               <div class="text-center">
-                <div class="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <svg class="w-8 h-8 text-primary-500" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"/>
+                <div
+                  class="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4"
+                >
+                  <svg
+                    class="w-8 h-8 text-primary-500"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
+                      clip-rule="evenodd"></path>
                   </svg>
                 </div>
-                <h3 class="text-lg font-semibold text-gray-800 mb-2">Szeroki wybór produktów</h3>
-                <p class="text-gray-600 text-sm">Laski, stabilizatory, protezy, wózki i balkoniki</p>
+                <h3 class="text-lg font-semibold text-gray-800 mb-2">
+                  Szeroki wybór produktów
+                </h3>
+                <p class="text-gray-600 text-sm">
+                  Laski, stabilizatory, protezy, wózki i balkoniki
+                </p>
               </div>
             </div>
           </div>
@@ -109,100 +94,414 @@ const featuredProducts = [
   </section>
 
   <!-- Featured Products -->
-  <section class="py-16 bg-gray-50">
+  <!-- Produkty -->
+  <ProductCarousel />
+
+  <!-- Mapa i dojazd -->
+  <section class="py-16 bg-pink-50">
     <div class="container mx-auto px-4">
       <div class="text-center mb-12">
+        <div
+          class="bg-pink-500 text-white inline-block px-6 py-3 rounded-full mb-6"
+        >
+          <div class="flex items-center space-x-2">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+              <path
+                fill-rule="evenodd"
+                d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
+                clip-rule="evenodd"></path>
+            </svg>
+            <span class="font-semibold">Jak dojechać</span>
+          </div>
+        </div>
         <h2 class="text-3xl lg:text-4xl font-bold text-gray-800 mb-4">
-          Profesjonalny sprzęt ortopedyczny
+          Znajdź nas w Poznaniu
         </h2>
         <p class="text-lg text-gray-600 max-w-2xl mx-auto">
-          Oferujemy najwyższej jakości sprzęt rehabilitacyjny i ortopedyczny od sprawdzonych producentów
+          Łatwo do nas trafisz - jesteśmy w centrum Poznania przy ul.
+          Dąbrowskiego 33
         </p>
       </div>
-      
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {featuredProducts.map((product) => (
-          <div class="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden">
-            <!-- Product Image -->
-            <div class="relative">
-              <img 
-                src={product.image} 
-                alt={product.name}
-                class="w-full h-48 object-cover"
-                loading="lazy"
-              />
-              <div class="absolute top-3 left-3">
-                <div class={`inline-flex items-center space-x-2 px-3 py-1 rounded-full ${
-                  product.availability === 'dostępny' ? 'bg-green-100' : 
-                  product.availability === 'na zamówienie' ? 'bg-yellow-100' : 'bg-red-100'
-                }`}>
-                  <div class={`w-2 h-2 rounded-full ${
-                    product.availability === 'dostępny' ? 'bg-green-500' : 
-                    product.availability === 'na zamówienie' ? 'bg-yellow-500' : 'bg-red-500'
-                  }`}></div>
-                </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+        <!-- Informacje kontaktowe -->
+        <div class="bg-white rounded-2xl p-8 shadow-lg">
+          <h3 class="text-2xl font-bold text-red-600 mb-6">
+            Dobry Sklep Medyczny
+          </h3>
+
+          <div class="space-y-4 mb-8">
+            <div class="flex items-start space-x-3">
+              <svg
+                class="w-5 h-5 text-gray-500 mt-1"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
+                  clip-rule="evenodd"></path>
+              </svg>
+              <div>
+                <p class="text-gray-800 font-medium">ul. Dąbrowskiego 33/LU7</p>
+                <p class="text-gray-600">60-842 Poznań</p>
               </div>
-              {product.nfzRefundable && (
-                <div class="absolute top-3 right-3">
-                  <div class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full font-medium">
-                    NFZ {product.nfzRefundPercentage}%
-                  </div>
-                </div>
-              )}
             </div>
 
-            <!-- Product Info -->
-            <div class="p-4">
-              <h3 class="font-bold text-gray-800 mb-2 line-clamp-2 h-12">
-                {product.name}
-              </h3>
-              
-              <!-- Pricing -->
-              <div class="mb-4">
-                <div class="flex items-center space-x-2">
-                  <p class="text-gray-400 line-through text-sm">{product.originalPrice.toFixed(2)} zł</p>
-                  <p class="text-2xl font-bold text-primary-500">{product.salePrice.toFixed(2)} zł</p>
-                </div>
-                <p class="text-sm text-primary-500 font-medium">
-                  Oszczędzasz {(product.originalPrice - product.salePrice).toFixed(2)} zł ({Math.round(((product.originalPrice - product.salePrice) / product.originalPrice) * 100)}%)
-                </p>
-              </div>
-
-              <!-- Availability -->
-              <div class="mb-4">
-                <div class={`inline-flex items-center space-x-2 px-3 py-1 rounded-full ${
-                  product.availability === 'dostępny' ? 'bg-green-100' : 
-                  product.availability === 'na zamówienie' ? 'bg-yellow-100' : 'bg-red-100'
-                }`}>
-                  <div class={`w-2 h-2 rounded-full ${
-                    product.availability === 'dostępny' ? 'bg-green-500' : 
-                    product.availability === 'na zamówienie' ? 'bg-yellow-500' : 'bg-red-500'
-                  }`}></div>
-                  <span class={`text-sm font-medium ${
-                    product.availability === 'dostępny' ? 'text-green-700' : 
-                    product.availability === 'na zamówienie' ? 'text-yellow-700' : 'text-red-700'
-                  }`}>
-                    {product.availability === 'dostępny' ? 'Dostępny' : 
-                     product.availability === 'na zamówienie' ? 'Na zamówienie' : 'Brak w magazynie'}
-                  </span>
-                </div>
-              </div>
-
-              <!-- Action Button -->
-              <a 
-                href={`/produkty/${product.slug}`}
-                class="w-full bg-primary-500 text-white py-3 px-4 rounded-lg hover:bg-primary-600 transition-colors font-semibold text-center block"
+            <div class="flex items-center space-x-3">
+              <svg
+                class="w-5 h-5 text-gray-500"
+                fill="currentColor"
+                viewBox="0 0 20 20"
               >
-                Zobacz szczegóły
+                <path
+                  d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"
+                ></path>
+              </svg>
+              <a
+                href="tel:600778042"
+                class="text-gray-800 font-medium hover:text-red-600 transition-colors"
+              >
+                600 778 042
               </a>
             </div>
+
+            <div class="flex items-center space-x-3">
+              <svg
+                class="w-5 h-5 text-gray-500"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z"
+                  clip-rule="evenodd"></path>
+              </svg>
+              <div>
+                <p class="text-gray-800 font-medium">
+                  Poniedziałek - Wtorek: 10:00 - 16:00
+                </p>
+                <p class="text-gray-800 font-medium">
+                  Środa - Czwartek: 10:00 - 16:00
+                </p>
+                <p class="text-gray-800 font-medium">Piątek: 10:00 - 15:00</p>
+                <p class="text-gray-600">Sobota - Niedziela: Zamknięte</p>
+              </div>
+            </div>
           </div>
-        ))}
+
+          <hr class="border-gray-200 mb-6" />
+
+          <div>
+            <h4 class="font-semibold text-gray-800 mb-4">Jak dojechać:</h4>
+            <div class="space-y-3">
+              <div class="flex items-center space-x-3">
+                <svg
+                  class="w-5 h-5 text-blue-500"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    d="M8 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM15 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z"
+                  ></path>
+                  <path
+                    d="M3 4a1 1 0 00-1 1v10a1 1 0 001 1h1.05a2.5 2.5 0 014.9 0H10a1 1 0 001-1V5a1 1 0 00-1-1H3zM14 7a1 1 0 00-1 1v6.05A2.5 2.5 0 0115.95 16H17a1 1 0 001-1V8a1 1 0 00-1-1h-3z"
+                  ></path>
+                </svg>
+                <span class="text-gray-700">Autobusy: 151, 152, 153, 154</span>
+              </div>
+              <div class="flex items-center space-x-3">
+                <svg
+                  class="w-5 h-5 text-red-500"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    d="M3 4a1 1 0 00-1 1v10a1 1 0 001 1h1.05a2.5 2.5 0 014.9 0H10a1 1 0 001-1V5a1 1 0 00-1-1H3zM14 7a1 1 0 00-1 1v6.05A2.5 2.5 0 0115.95 16H17a1 1 0 001-1V8a1 1 0 00-1-1h-3z"
+                  ></path>
+                  <path
+                    d="M8 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM15 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z"
+                  ></path>
+                  <path
+                    d="M2 4a1 1 0 00-1 1v10a1 1 0 001 1h1.05a2.5 2.5 0 014.9 0H10a1 1 0 001-1V5a1 1 0 00-1-1H2z"
+                  ></path>
+                </svg>
+                <span class="text-gray-700">Tramwaje: 1, 2, 3, 4, 5</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mapa Google -->
+        <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2434.1234567890123!2d16.9255!3d52.4064!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47045b7c7c7c7c7c%3A0x7c7c7c7c7c7c7c7c!2sD%C4%85browskiego%2033%2C%2060-842%20Pozna%C5%84!5e0!3m2!1spl!2spl!4v1234567890123"
+            width="100%"
+            height="400"
+            style="border:0;"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            class="w-full h-96"></iframe>
+        </div>
       </div>
-      
-      <div class="text-center mt-12">
-        <a href="/produkty" class="btn-primary">
-          Zobacz wszystkie produkty
+    </div>
+  </section>
+
+  <!-- Opinie klientów -->
+  <section class="py-16 bg-gray-900 text-white">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl lg:text-4xl font-bold mb-4">
+          Co mówią o nas klienci
+        </h2>
+        <p class="text-lg text-gray-300 max-w-2xl mx-auto">
+          Sprawdź opinie naszych zadowolonych klientów na Google
+        </p>
+      </div>
+
+      <!-- Google Reviews Summary -->
+      <div
+        class="bg-white text-gray-800 rounded-lg p-6 shadow-lg mb-8 max-w-md mx-auto"
+      >
+        <div class="flex items-center justify-between mb-4">
+          <div class="flex items-center space-x-3">
+            <svg
+              class="w-8 h-8 text-blue-500"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+            >
+              <path
+                d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
+              ></path>
+              <path
+                d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
+              ></path>
+              <path
+                d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"
+              ></path>
+              <path
+                d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
+              ></path>
+            </svg>
+            <div>
+              <p class="text-2xl font-bold">5/5</p>
+              <p class="text-sm text-gray-600">32 opinie</p>
+            </div>
+          </div>
+          <div class="text-xs text-gray-500">Opinie nie są zweryfikowane</div>
+        </div>
+        <button
+          class="w-full bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition-colors font-semibold"
+        >
+          + Dodaj opinię
+        </button>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+        <!-- Opinia 1 -->
+        <div class="bg-white text-gray-800 rounded-lg p-6 shadow-lg">
+          <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center space-x-3">
+              <div
+                class="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center"
+              >
+                <span class="text-purple-600 font-semibold">G</span>
+              </div>
+              <div>
+                <p class="font-semibold">Gosia Wysocka</p>
+                <div class="flex items-center space-x-2">
+                  <span class="text-xs text-gray-500">Opinia z: Google</span>
+                  <div class="flex text-yellow-400 text-sm">★★★★★</div>
+                </div>
+              </div>
+            </div>
+            <div class="text-gray-500 text-xs">3 miesiące temu</div>
+          </div>
+          <p class="text-gray-600">
+            "Bardzo polecam ten sklep! Mają szeroki asortyment i przemiłą
+            obsługę, która odpowie na każde zadane pytanie."
+          </p>
+        </div>
+
+        <!-- Opinia 2 -->
+        <div class="bg-white text-gray-800 rounded-lg p-6 shadow-lg">
+          <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center space-x-3">
+              <div
+                class="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center"
+              >
+                <span class="text-purple-600 font-semibold">Z</span>
+              </div>
+              <div>
+                <p class="font-semibold">Zuza Berkowska</p>
+                <div class="flex items-center space-x-2">
+                  <span class="text-xs text-gray-500">Opinia z: Google</span>
+                  <div class="flex text-yellow-400 text-sm">★★★★★</div>
+                </div>
+              </div>
+            </div>
+            <div class="text-gray-500 text-xs">2 miesiące temu</div>
+          </div>
+          <p class="text-gray-600">
+            "Świetny sklep, obsługa na wysokim poziomie - z wiedzą,
+            doświadczeniem, a przy tym bardzo sympatyczna!"
+          </p>
+        </div>
+
+        <!-- Opinia 3 -->
+        <div class="bg-white text-gray-800 rounded-lg p-6 shadow-lg">
+          <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center space-x-3">
+              <div
+                class="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center"
+              >
+                <span class="text-purple-600 font-semibold">Z</span>
+              </div>
+              <div>
+                <p class="font-semibold">Zuzanna S.</p>
+                <div class="flex items-center space-x-2">
+                  <span class="text-xs text-gray-500">Opinia z: Google</span>
+                  <div class="flex text-yellow-400 text-sm">★★★★★</div>
+                </div>
+              </div>
+            </div>
+            <div class="text-gray-500 text-xs">2 miesiące temu</div>
+          </div>
+          <p class="text-gray-600">
+            "Świetnia i bardzo pomocna obsługa, a sklep ma spory asortyment,
+            polecam!"
+          </p>
+        </div>
+
+        <!-- Opinia 4 -->
+        <div class="bg-white text-gray-800 rounded-lg p-6 shadow-lg">
+          <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center space-x-3">
+              <div
+                class="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center"
+              >
+                <span class="text-purple-600 font-semibold">I</span>
+              </div>
+              <div>
+                <p class="font-semibold">Iwo Kaczmarek</p>
+                <div class="flex items-center space-x-2">
+                  <span class="text-xs text-gray-500">Opinia z: Google</span>
+                  <div class="flex text-yellow-400 text-sm">★★★★★</div>
+                </div>
+              </div>
+            </div>
+            <div class="text-gray-500 text-xs">3 miesiące temu</div>
+          </div>
+          <p class="text-gray-600">
+            "Bardzo dobrze wyposażony sklep i miła obsługa. Wart polecenia"
+          </p>
+        </div>
+
+        <!-- Opinia 5 -->
+        <div class="bg-white text-gray-800 rounded-lg p-6 shadow-lg">
+          <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center space-x-3">
+              <div
+                class="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center"
+              >
+                <span class="text-purple-600 font-semibold">Z</span>
+              </div>
+              <div>
+                <p class="font-semibold">Zuzanna Grabowska</p>
+                <div class="flex items-center space-x-2">
+                  <span class="text-xs text-gray-500">Opinia z: Google</span>
+                  <div class="flex text-yellow-400 text-sm">★★★★★</div>
+                </div>
+              </div>
+            </div>
+            <div class="text-gray-500 text-xs">3 miesiące temu</div>
+          </div>
+          <p class="text-gray-600">
+            "Obsługa jest pomocna i wykazała się dużą wiedzą pomagając przy
+            doborze ortezy. Polecam serdecznie!"
+          </p>
+        </div>
+
+        <!-- Opinia 6 -->
+        <div class="bg-white text-gray-800 rounded-lg p-6 shadow-lg">
+          <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center space-x-3">
+              <div
+                class="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center"
+              >
+                <span class="text-purple-600 font-semibold">P</span>
+              </div>
+              <div>
+                <p class="font-semibold">Paulina</p>
+                <div class="flex items-center space-x-2">
+                  <span class="text-xs text-gray-500">Opinia z: Google</span>
+                  <div class="flex text-yellow-400 text-sm">★★★★★</div>
+                </div>
+              </div>
+            </div>
+            <div class="text-gray-500 text-xs">5 miesięcy temu</div>
+          </div>
+          <p class="text-gray-600">
+            "Bardzo miła obsługa oraz możliwość szybkiego wypożyczenia sprzętu
+            od ręki, polecam!"
+          </p>
+        </div>
+      </div>
+
+      <div class="text-center">
+        <a
+          href="https://www.google.com/search?q=dobry+sklep+medyczny+pozna%C5%84+opinie"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center space-x-2 bg-white text-gray-800 px-6 py-3 rounded-lg border-2 border-pink-200 hover:bg-pink-50 transition-colors font-semibold"
+        >
+          <svg
+            class="w-5 h-5 text-blue-500"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+          >
+            <path
+              d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
+            ></path>
+            <path
+              d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
+            ></path>
+            <path
+              d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"
+            ></path>
+            <path
+              d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
+            ></path>
+          </svg>
+          <span>Zobacz wszystkie opinie na Google</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Social Media -->
+  <section class="py-16 bg-gray-900">
+    <div class="container mx-auto px-4 text-center">
+      <h2 class="text-3xl lg:text-4xl font-bold text-white mb-8">
+        Śledź nas w mediach społecznościowych
+      </h2>
+      <div class="flex justify-center space-x-6">
+        <a
+          href="https://www.instagram.com/dobry_sklep_medyczny/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="w-16 h-16 bg-pink-500 rounded-full flex items-center justify-center hover:bg-pink-600 transition-colors"
+        >
+          <svg
+            class="w-8 h-8 text-white"
+            fill="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"
+            ></path>
+          </svg>
         </a>
       </div>
     </div>
@@ -216,39 +515,76 @@ const featuredProducts = [
           Dlaczego warto wybrać nasz sklep?
         </h2>
         <p class="text-lg text-gray-600 max-w-2xl mx-auto">
-          Specjalizujemy się w sprzęcie ortopedycznym i rehabilitacyjnym od ponad 10 lat
+          Specjalizujemy się w sprzęcie ortopedycznym i rehabilitacyjnym od
+          ponad 10 lat
         </p>
       </div>
-      
+
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         <div class="text-center">
-          <div class="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4">
-            <svg class="w-8 h-8 text-primary-500" fill="currentColor" viewBox="0 0 20 20">
-              <path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+          <div
+            class="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4"
+          >
+            <svg
+              class="w-8 h-8 text-primary-500"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                clip-rule="evenodd"></path>
             </svg>
           </div>
-          <h3 class="text-xl font-semibold text-gray-800 mb-2">Współpraca z NFZ</h3>
-          <p class="text-gray-600">Zapewniamy refundacje NFZ i pomagamy w załatwianiu formalności</p>
+          <h3 class="text-xl font-semibold text-gray-800 mb-2">
+            Współpraca z NFZ
+          </h3>
+          <p class="text-gray-600">
+            Zapewniamy refundacje NFZ i pomagamy w załatwianiu formalności
+          </p>
         </div>
-        
+
         <div class="text-center">
-          <div class="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4">
-            <svg class="w-8 h-8 text-primary-500" fill="currentColor" viewBox="0 0 20 20">
-              <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+          <div
+            class="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4"
+          >
+            <svg
+              class="w-8 h-8 text-primary-500"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+            >
+              <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
             </svg>
           </div>
-          <h3 class="text-xl font-semibold text-gray-800 mb-2">Doradztwo specjalistyczne</h3>
-          <p class="text-gray-600">Pomagamy w doborze odpowiedniego sprzętu i udzielamy fachowych porad</p>
+          <h3 class="text-xl font-semibold text-gray-800 mb-2">
+            Doradztwo specjalistyczne
+          </h3>
+          <p class="text-gray-600">
+            Pomagamy w doborze odpowiedniego sprzętu i udzielamy fachowych porad
+          </p>
         </div>
-        
+
         <div class="text-center">
-          <div class="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4">
-            <svg class="w-8 h-8 text-primary-500" fill="currentColor" viewBox="0 0 20 20">
-              <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"/>
+          <div
+            class="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4"
+          >
+            <svg
+              class="w-8 h-8 text-primary-500"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z"
+                clip-rule="evenodd"></path>
             </svg>
           </div>
-          <h3 class="text-xl font-semibold text-gray-800 mb-2">Gwarancja jakości</h3>
-          <p class="text-gray-600">Wszystkie produkty posiadają gwarancję producenta i certyfikaty CE</p>
+          <h3 class="text-xl font-semibold text-gray-800 mb-2">
+            Gwarancja jakości
+          </h3>
+          <p class="text-gray-600">
+            Wszystkie produkty posiadają gwarancję producenta i certyfikaty CE
+          </p>
         </div>
       </div>
     </div>
@@ -256,6 +592,66 @@ const featuredProducts = [
 
   <Footer />
 </Layout>
+
+<script>
+  // Globalna funkcja do otwierania modali produktów
+  window.openProductModal = function (modalId) {
+    console.log("Otwieram modal:", modalId);
+    const modal = document.getElementById(modalId);
+    if (modal) {
+      modal.classList.remove("hidden");
+      document.body.style.overflow = "hidden";
+      console.log("Modal otwarty:", modalId);
+    } else {
+      console.error("Modal nie znaleziony:", modalId);
+    }
+  };
+
+  // Zamykanie modali
+  window.closeProductModal = function (modalId) {
+    const modal = document.getElementById(modalId);
+    if (modal) {
+      modal.classList.add("hidden");
+      document.body.style.overflow = "auto";
+    }
+  };
+
+  // Event listenery dla przycisków "Zobacz szczegóły"
+  document.addEventListener("DOMContentLoaded", function () {
+    document.addEventListener("click", function (e) {
+      if (e.target.classList.contains("product-detail-btn")) {
+        const modalId = e.target.getAttribute("data-modal-id");
+        if (modalId) {
+          openProductModal(modalId);
+        }
+      }
+    });
+  });
+
+  // Zamykanie modali po kliknięciu poza nimi
+  document.addEventListener("click", function (e) {
+    if (
+      e.target.classList.contains("fixed") &&
+      e.target.classList.contains("bg-black")
+    ) {
+      e.target.classList.add("hidden");
+      document.body.style.overflow = "auto";
+    }
+  });
+
+  // Zamykanie modali klawiszem Escape
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape") {
+      const openModals = document.querySelectorAll(
+        ".fixed.bg-black:not(.hidden)"
+      );
+      openModals.forEach((modal) => {
+        modal.classList.add("hidden");
+        document.body.style.overflow = "auto";
+      });
+    }
+  });
+</script>
 
 <style>
   .line-clamp-2 {

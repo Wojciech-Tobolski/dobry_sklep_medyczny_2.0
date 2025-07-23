@@ -1,25 +1,23 @@
 export interface Product {
-  id: string;
-  name: string;
-  slug: string;
-  category: 'laski' | 'stabilizatory' | 'protezy' | 'wozki' | 'balkoniki';
-  originalPrice: number;
-  salePrice: number;
-  image: string;
-  description: string;
-  detailedDescription: string;
-  features: string[];
-  technicalSpecs: string[];
-  nfzRefundable: boolean;
-  nfzRefundPercentage?: number;
-  availability: 'dostępny' | 'na zamówienie' | 'brak';
-  inStock: boolean;
+  id?: string;
+  name?: string;
+  title?: string;
+  slug?: string;
+  category?: 'laski' | 'stabilizatory' | 'protezy' | 'wozki' | 'balkoniki' | 'ortezy' | 'rehabilitacja' | 'masaż';
+  originalPrice?: number;
+  salePrice?: number;
+  mainImage?: string;
   images?: string[];
-  applications?: string[];
-  indications?: string[];
-  contraindications?: string[];
-  createdAt: Date;
-  updatedAt: Date;
+  shortDescription?: string;
+  detailedDescription?: string;
+  technicalSpecs?: string[];
+  nfzRefundable?: boolean;
+  nfzRefundPercentage?: number;
+  availability?: 'dostępny' | 'na zamówienie' | 'brak';
+  rentalAvailable?: boolean;
+  rentalPrice?: number;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
 export interface ProductCategory {

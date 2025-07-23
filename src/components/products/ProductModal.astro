@@ -1,0 +1,357 @@
+---
+import type { Product } from "../../types/Product";
+import AvailabilityBadge from "./AvailabilityBadge.astro";
+
+export interface Props {
+  product: Product;
+  modalId?: string;
+}
+
+const { product, modalId = "productModal" } = Astro.props;
+const originalPrice = product.originalPrice || 299.99;
+const salePrice = product.salePrice || 249.99;
+const savings = originalPrice - salePrice;
+const savingsPercent = Math.round((savings / originalPrice) * 100);
+---
+
+<div
+  id={modalId}
+  class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center p-4"
+>
+  <div
+    class="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto"
+  >
+    <!-- Modal Header -->
+    <div class="flex justify-between items-center p-6 border-b">
+      <h2 class="text-2xl font-bold text-gray-800">
+        {product.name || product.title}
+      </h2>
+      <button
+        id="closeModal"
+        class="text-gray-500 hover:text-gray-700 text-2xl font-bold"
+      >
+        ×
+      </button>
+    </div>
+
+    <!-- Modal Content -->
+    <div class="p-6">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <!-- Product Images -->
+        <div class="space-y-4">
+          <!-- Main Image Container -->
+          <div class="relative">
+            <img
+              id="mainImage"
+              src={product.mainImage || "/images/products/placeholder.jpg"}
+              alt={product.name || product.title}
+              class="w-full h-80 object-contain bg-gray-100 rounded-lg"
+            />
+            <!-- Navigation Arrows -->
+            {
+              product.images && product.images.length > 1 && (
+                <>
+                  <button
+                    id="prevImage"
+                    class="absolute left-2 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-80 hover:bg-opacity-100 rounded-full p-2 shadow-lg transition-all"
+                  >
+                    <svg
+                      class="w-6 h-6 text-gray-700"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M15 19l-7-7 7-7"
+                      />
+                    </svg>
+                  </button>
+                  <button
+                    id="nextImage"
+                    class="absolute right-2 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-80 hover:bg-opacity-100 rounded-full p-2 shadow-lg transition-all"
+                  >
+                    <svg
+                      class="w-6 h-6 text-gray-700"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M9 5l7 7-7 7"
+                      />
+                    </svg>
+                  </button>
+                </>
+              )
+            }
+          </div>
+
+          <!-- Thumbnail Gallery -->
+          {
+            product.images && product.images.length > 1 && (
+              <div class="flex space-x-2 overflow-x-auto pb-2">
+                {product.images.map((image, index) => (
+                  <img
+                    src={image}
+                    alt={`${product.name || product.title} - zdjęcie ${index + 1}`}
+                    class="w-20 h-20 object-cover rounded cursor-pointer hover:opacity-75 border-2 border-transparent hover:border-primary-500 transition-all flex-shrink-0"
+                    data-index={index}
+                    onclick="changeMainImage(this.src)"
+                  />
+                ))}
+              </div>
+            )
+          }
+        </div>
+
+        <!-- Product Details -->
+        <div class="space-y-6">
+          <!-- Pricing -->
+          <div class="bg-gray-50 p-4 rounded-lg">
+            <div class="flex items-center space-x-3 mb-2">
+              <p class="text-gray-400 line-through text-lg">
+                {originalPrice.toFixed(2)} zł
+              </p>
+              <p class="text-3xl font-bold text-primary-500">
+                {salePrice.toFixed(2)} zł
+              </p>
+            </div>
+            <p class="text-sm text-primary-500 font-medium">
+              Oszczędzasz {savings.toFixed(2)} zł ({savingsPercent}%)
+            </p>
+          </div>
+
+          <!-- Availability -->
+          <div>
+            <AvailabilityBadge
+              availability={product.availability || "available"}
+            />
+          </div>
+
+          <!-- NFZ Refund -->
+          {
+            product.nfzRefundable && (
+              <div class="bg-blue-50 p-4 rounded-lg">
+                <div class="flex items-center space-x-2 mb-2">
+                  <svg
+                    class="w-5 h-5 text-blue-500"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+                  <span class="font-semibold text-blue-800">
+                    Refundacja NFZ
+                  </span>
+                </div>
+                <p class="text-blue-700">
+                  Możliwość refundacji NFZ w wysokości{" "}
+                  {product.nfzRefundPercentage || 80}%
+                </p>
+              </div>
+            )
+          }
+
+          <!-- Rental -->
+          {
+            product.rentalAvailable && (
+              <div class="bg-pink-50 p-4 rounded-lg">
+                <div class="flex items-center space-x-2 mb-2">
+                  <svg
+                    class="w-5 h-5 text-pink-500"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path d="M8 9a3 3 0 100-6 3 3 0 000 6zM8 11a6 6 0 016 6H2a6 6 0 016-6zM16 7a1 1 0 10-2 0v1h-1a1 1 0 100 2h1v1a1 1 0 102 0v-1h1a1 1 0 100-2h-1V7z" />
+                  </svg>
+                  <span class="font-semibold text-pink-800">
+                    Wynajem możliwy
+                  </span>
+                </div>
+                <p class="text-pink-700">
+                  Cena wynajmu: {product.rentalPrice || 15} zł/dzień
+                </p>
+              </div>
+            )
+          }
+
+          <!-- Description -->
+          <div>
+            <h3 class="font-semibold text-gray-800 mb-2">Opis</h3>
+            <p class="text-gray-600 leading-relaxed">
+              {
+                product.shortDescription ||
+                  "Produkt ortopedyczny wysokiej jakości"
+              }
+            </p>
+          </div>
+
+          <!-- Technical Specs -->
+          {
+            product.technicalSpecs && product.technicalSpecs.length > 0 && (
+              <div>
+                <h3 class="font-semibold text-gray-800 mb-2">
+                  Specyfikacja techniczna
+                </h3>
+                <ul class="space-y-1">
+                  {product.technicalSpecs.map((spec) => (
+                    <li class="text-gray-600 text-sm">• {spec}</li>
+                  ))}
+                </ul>
+              </div>
+            )
+          }
+
+          <!-- Action Buttons -->
+          <div class="flex space-x-4 pt-4">
+            <button
+              class="flex-1 bg-primary-500 text-white py-3 px-6 rounded-lg hover:bg-primary-600 transition-colors font-semibold"
+            >
+              Zamów teraz
+            </button>
+            <button
+              class="flex-1 border-2 border-primary-500 text-primary-500 py-3 px-6 rounded-lg hover:bg-primary-50 transition-colors font-semibold"
+            >
+              Skontaktuj się
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script define:vars={{ product, modalId }}>
+  // Modal functionality
+  function openModal() {
+    const modal = document.getElementById(modalId);
+    if (modal) {
+      modal.classList.remove("hidden");
+      document.body.style.overflow = "hidden";
+    }
+  }
+
+  function closeModal() {
+    const modal = document.getElementById(modalId);
+    if (modal) {
+      modal.classList.add("hidden");
+      document.body.style.overflow = "auto";
+    }
+  }
+
+  // Close modal when clicking outside
+  document.getElementById(modalId)?.addEventListener("click", (e) => {
+    if (e.target === e.currentTarget) {
+      closeModal();
+    }
+  });
+
+  // Close modal with close button
+  document.getElementById("closeModal")?.addEventListener("click", () => {
+    closeProductModal(modalId);
+  });
+
+  // Close modal with Escape key
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      closeModal();
+    }
+  });
+
+  // Modal is now handled by global function
+
+  // Image gallery functionality
+  let currentImageIndex = 0;
+  let productImages = [];
+
+  function changeMainImage(src) {
+    const mainImage = document.getElementById("mainImage");
+    if (mainImage) {
+      mainImage.src = src;
+      // Update current index
+      const index = productImages.indexOf(src);
+      if (index !== -1) {
+        currentImageIndex = index;
+        updateThumbnailSelection();
+      }
+    }
+  }
+
+  function nextImage() {
+    if (productImages.length > 1) {
+      currentImageIndex = (currentImageIndex + 1) % productImages.length;
+      changeMainImage(productImages[currentImageIndex]);
+    }
+  }
+
+  function prevImage() {
+    if (productImages.length > 1) {
+      currentImageIndex =
+        (currentImageIndex - 1 + productImages.length) % productImages.length;
+      changeMainImage(productImages[currentImageIndex]);
+    }
+  }
+
+  function updateThumbnailSelection() {
+    // Remove active class from all thumbnails
+    document.querySelectorAll("[data-index]").forEach((thumb) => {
+      thumb.classList.remove("border-primary-500");
+      thumb.classList.add("border-transparent");
+    });
+
+    // Add active class to current thumbnail
+    const activeThumb = document.querySelector(
+      `[data-index="${currentImageIndex}"]`
+    );
+    if (activeThumb) {
+      activeThumb.classList.remove("border-transparent");
+      activeThumb.classList.add("border-primary-500");
+    }
+  }
+
+  // Initialize image gallery when modal opens
+  function initImageGallery() {
+    const images = product.images || [];
+    productImages = [
+      product.mainImage || "/images/products/placeholder.jpg",
+      ...images,
+    ];
+    currentImageIndex = 0;
+
+    // Add event listeners for navigation buttons
+    document.getElementById("nextImage")?.addEventListener("click", nextImage);
+    document.getElementById("prevImage")?.addEventListener("click", prevImage);
+
+    // Initialize thumbnail selection
+    updateThumbnailSelection();
+  }
+
+  // Initialize this modal's gallery when it opens
+  const modal = document.getElementById(modalId);
+  if (modal) {
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (
+          mutation.type === "attributes" &&
+          mutation.attributeName === "class"
+        ) {
+          if (!modal.classList.contains("hidden")) {
+            initImageGallery();
+          }
+        }
+      });
+    });
+
+    observer.observe(modal, { attributes: true });
+  }
+</script>
