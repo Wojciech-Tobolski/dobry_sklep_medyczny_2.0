@@ -15,13 +15,8 @@ const sort = url.searchParams.get('sortuj');
 // Get products based on filters
 let products = ProductService.getAllProducts();
 
-// Debug: log the category and filtered products
-console.log('Category filter:', category);
-console.log('All products:', products.map(p => ({ name: p.name, category: p.category })));
-
 if (category) {
   products = products.filter(product => product.category === category);
-  console.log('Filtered products:', products.map(p => ({ name: p.name, category: p.category })));
 }
 
 if (search) {
