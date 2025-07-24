@@ -1,0 +1,462 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/common/Header.astro";
+import Footer from "../components/common/Footer.astro";
+import ProductCard from "../components/products/ProductCard.astro";
+import ProductModal from "../components/products/ProductModal.astro";
+import { ProductService } from "../services/ProductService";
+
+// Get URL parameters
+const url = new URL(Astro.request.url);
+const category = url.searchParams.get('kategoria');
+const search = url.searchParams.get('szukaj');
+const sort = url.searchParams.get('sortuj');
+
+// Get products based on filters
+let products = ProductService.getAllProducts();
+
+// Debug: log the category and filtered products
+console.log('Category filter:', category);
+console.log('All products:', products.map(p => ({ name: p.name, category: p.category })));
+
+if (category) {
+  products = products.filter(product => product.category === category);
+  console.log('Filtered products:', products.map(p => ({ name: p.name, category: p.category })));
+}
+
+if (search) {
+  const searchLower = search.toLowerCase();
+  products = products.filter(product => 
+    product.name?.toLowerCase().includes(searchLower) ||
+    product.title?.toLowerCase().includes(searchLower) ||
+    product.shortDescription?.toLowerCase().includes(searchLower)
+  );
+}
+
+// Sort products
+if (sort) {
+  switch (sort) {
+    case 'nazwa':
+      products.sort((a, b) => (a.name || '').localeCompare(b.name || ''));
+      break;
+    case 'cena-rosnaco':
+      products.sort((a, b) => (a.salePrice || 0) - (b.salePrice || 0));
+      break;
+    case 'cena-malejaco':
+      products.sort((a, b) => (b.salePrice || 0) - (a.salePrice || 0));
+      break;
+    case 'najnowsze':
+      products.sort((a, b) => (b.createdAt?.getTime() || 0) - (a.createdAt?.getTime() || 0));
+      break;
+  }
+}
+
+const categories = ProductService.getCategories();
+---
+
+<Layout
+  title="Produkty - Dobry Sklep Medyczny | Sprzęt ortopedyczny i rehabilitacyjny"
+  description="Szeroki wybór sprzętu ortopedycznego i rehabilitacyjnego. Laski, stabilizatory, protezy, wózki i balkoniki z refundacją NFZ."
+>
+  <Header />
+
+  <!-- Hero Section -->
+  <section class="bg-primary-500 text-white py-16">
+    <div class="container mx-auto px-4 text-center">
+      <h1 class="text-4xl lg:text-5xl font-bold mb-4">Nasze produkty</h1>
+      <p class="text-xl opacity-90 max-w-2xl mx-auto">
+        Profesjonalny sprzęt ortopedyczny i rehabilitacyjny najwyższej jakości
+      </p>
+    </div>
+  </section>
+
+  <!-- Filters and Products -->
+  <section class="py-16">
+    <div class="container mx-auto px-6 max-w-7xl">
+      <div class="grid grid-cols-1 lg:grid-cols-4 gap-12">
+        <!-- Filters Sidebar -->
+        <div class="lg:col-span-1">
+          <div class="bg-white rounded-2xl shadow-lg p-8 sticky top-24">
+            <h2 class="text-xl font-bold text-gray-800 mb-6">Filtry</h2>
+            
+            <!-- Search -->
+            <div class="mb-8">
+              <label class="block text-sm font-medium text-gray-700 mb-3">Szukaj</label>
+              <form method="GET" class="flex">
+                {category && <input type="hidden" name="kategoria" value={category} />}
+                <input
+                  type="text"
+                  name="szukaj"
+                  value={search || ''}
+                  placeholder="Nazwa produktu..."
+                  class="flex-1 px-4 py-3 border border-gray-300 rounded-l-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent text-sm"
+                />
+                <button
+                  type="submit"
+                  class="px-4 py-3 bg-primary-500 text-white rounded-r-lg hover:bg-primary-600 transition-colors flex-shrink-0"
+                >
+                  <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path>
+                  </svg>
+                </button>
+              </form>
+            </div>
+
+            <!-- Categories -->
+            <div class="mb-8">
+              <label class="block text-sm font-medium text-gray-700 mb-4">Kategorie</label>
+              <div class="space-y-3">
+                <a
+                  href="/produkty"
+                  class={`block px-4 py-3 rounded-lg text-sm transition-colors ${
+                    !category 
+                      ? 'bg-primary-100 text-primary-700 font-medium' 
+                      : 'text-gray-600 hover:bg-gray-100'
+                  }`}
+                >
+                  Wszystkie produkty ({ProductService.getAllProducts().length})
+                </a>
+                {categories.map((cat) => (
+                  <a
+                    href={`/produkty?kategoria=${cat.id}`}
+                    class={`block px-4 py-3 rounded-lg text-sm transition-colors ${
+                      category === cat.id 
+                        ? 'bg-primary-100 text-primary-700 font-medium' 
+                        : 'text-gray-600 hover:bg-gray-100'
+                    }`}
+                  >
+                    {cat.name} ({cat.productCount})
+                  </a>
+                ))}
+              </div>
+            </div>
+
+            <!-- Sort -->
+            <div class="mb-8">
+              <label class="block text-sm font-medium text-gray-700 mb-3">Sortuj według</label>
+              <form method="GET" id="sort-form">
+                {category && <input type="hidden" name="kategoria" value={category} />}
+                {search && <input type="hidden" name="szukaj" value={search} />}
+                <select
+                  name="sortuj"
+                  onchange="document.getElementById('sort-form').submit()"
+                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                >
+                  <option value="">Domyślnie</option>
+                  <option value="nazwa" selected={sort === 'nazwa'}>Nazwa A-Z</option>
+                  <option value="cena-rosnaco" selected={sort === 'cena-rosnaco'}>Cena (od najniższej)</option>
+                  <option value="cena-malejaco" selected={sort === 'cena-malejaco'}>Cena (od najwyższej)</option>
+                  <option value="najnowsze" selected={sort === 'najnowsze'}>Najnowsze</option>
+                </select>
+              </form>
+            </div>
+
+            <!-- Clear Filters -->
+            {(category || search || sort) && (
+              <a
+                href="/produkty"
+                class="block w-full text-center px-4 py-3 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors text-sm font-medium"
+              >
+                Wyczyść filtry
+              </a>
+            )}
+          </div>
+        </div>
+
+        <!-- Products Grid -->
+        <div class="lg:col-span-3">
+          <!-- Results Header -->
+          <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-10">
+            <div>
+              <h2 class="text-3xl font-bold text-gray-800 mb-2">
+                {category ? categories.find(c => c.id === category)?.name : 'Wszystkie produkty'}
+              </h2>
+              <p class="text-gray-600 text-lg">
+                Znaleziono {products.length} produkt{products.length === 1 ? '' : products.length < 5 ? 'y' : 'ów'}
+              </p>
+            </div>
+            
+            {products.length > 0 && (
+              <div class="flex items-center space-x-3 mt-6 sm:mt-0">
+                <span class="text-sm font-medium text-gray-700">Pokaż:</span>
+                <div class="flex border border-gray-300 rounded-lg overflow-hidden">
+                  <button 
+                    id="grid-view-btn"
+                    class="px-4 py-2 bg-primary-500 text-white text-sm font-medium transition-colors"
+                  >
+                    Siatka
+                  </button>
+                  <button 
+                    id="list-view-btn"
+                    class="px-4 py-2 bg-white text-gray-600 text-sm font-medium hover:bg-gray-50 transition-colors"
+                  >
+                    Lista
+                  </button>
+                </div>
+              </div>
+            )}
+          </div>
+
+          <!-- Products -->
+          {products.length > 0 ? (
+            <div id="products-container" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
+              {products.map((product) => (
+                <ProductCard product={product} slug={product.slug || ''} viewMode="grid" />
+              ))}
+            </div>
+          ) : (
+            <!-- No Results -->
+            <div class="text-center py-12">
+              <div class="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                <svg class="w-12 h-12 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path>
+                </svg>
+              </div>
+              <h3 class="text-xl font-semibold text-gray-800 mb-2">Nie znaleziono produktów</h3>
+              <p class="text-gray-600 mb-6">
+                {search 
+                  ? `Nie znaleziono produktów pasujących do wyszukiwania "${search}"`
+                  : 'Nie znaleziono produktów w wybranej kategorii'
+                }
+              </p>
+              <a
+                href="/produkty"
+                class="inline-flex items-center px-6 py-3 bg-primary-500 text-white rounded-lg hover:bg-primary-600 transition-colors font-semibold"
+              >
+                Zobacz wszystkie produkty
+              </a>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Product Modals -->
+  {products.map((product) => (
+    <ProductModal 
+      product={product} 
+      modalId={`modal-${product.slug || 'product'}`} 
+    />
+  ))}
+
+  <Footer />
+</Layout>
+
+<script>
+  // View mode switching functionality
+  document.addEventListener('DOMContentLoaded', function() {
+    const gridViewBtn = document.getElementById('grid-view-btn');
+    const listViewBtn = document.getElementById('list-view-btn');
+    const productsContainer = document.getElementById('products-container');
+    
+    if (!gridViewBtn || !listViewBtn || !productsContainer) return;
+    
+    // Set initial state
+    let currentView = 'grid'; 
+    
+    function switchToGridView() {
+      currentView = 'grid';
+      productsContainer.className = 'grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8';
+      
+      // Update button states
+      gridViewBtn.className = 'px-4 py-2 bg-primary-500 text-white text-sm font-medium transition-colors';
+      listViewBtn.className = 'px-4 py-2 bg-white text-gray-600 text-sm font-medium hover:bg-gray-50 transition-colors';
+      
+      // Update product cards
+      const productCards = productsContainer.querySelectorAll('[data-view-mode]');
+      productCards.forEach(card => {
+        card.setAttribute('data-view-mode', 'grid');
+        card.className = card.className.replace('flex', '').replace('w-48 flex-shrink-0', '');
+        const img = card.querySelector('img');
+        if (img) img.className = img.className.replace('h-48', 'h-72');
+        const info = card.querySelector('.product-info');
+        if (info) info.className = info.className.replace('flex-1 p-6', 'p-6');
+      });
+    }
+    
+    function switchToListView() {
+      currentView = 'list';
+      productsContainer.className = 'space-y-6';
+      
+      // Update button states
+      listViewBtn.className = 'px-4 py-2 bg-primary-500 text-white text-sm font-medium transition-colors';
+      gridViewBtn.className = 'px-4 py-2 bg-white text-gray-600 text-sm font-medium hover:bg-gray-50 transition-colors';
+      
+      // Update product cards
+      const productCards = productsContainer.querySelectorAll('[data-view-mode]');
+      productCards.forEach(card => {
+        card.setAttribute('data-view-mode', 'list');
+        card.className = card.className + ' flex';
+        const imgContainer = card.querySelector('.product-image');
+        if (imgContainer) imgContainer.className = imgContainer.className + ' w-48 flex-shrink-0';
+        const img = card.querySelector('img');
+        if (img) img.className = img.className.replace('h-72', 'h-48');
+        const info = card.querySelector('.product-info');
+        if (info) info.className = info.className.replace('p-6', 'flex-1 p-6');
+      });
+    }
+    
+    // Event listeners
+    gridViewBtn.addEventListener('click', switchToGridView);
+    listViewBtn.addEventListener('click', switchToListView);
+  });
+</script>
+
+<script>
+  // Product modal handling
+  document.addEventListener("DOMContentLoaded", function () {
+    document.addEventListener("click", function (e) {
+      const target = e.target as HTMLElement;
+      if (target && target.classList.contains("product-detail-btn")) {
+        const modalId = target.getAttribute("data-modal-id");
+        if (modalId) {
+          const modal = document.getElementById(modalId);
+          if (modal) {
+            modal.classList.remove("hidden");
+            document.body.style.overflow = "hidden";
+          }
+        }
+      }
+    });
+
+    // Close modal buttons
+    document.addEventListener("click", function (e) {
+      const target = e.target as HTMLElement;
+      if (target && target.id && target.id.startsWith("closeModal-")) {
+        const modalId = target.id.replace("closeModal-", "");
+        const modal = document.getElementById(modalId);
+        if (modal) {
+          modal.classList.add("hidden");
+          document.body.style.overflow = "auto";
+        }
+      }
+    });
+
+    // Close modal when clicking outside
+    document.addEventListener("click", function (e) {
+      const target = e.target as HTMLElement;
+      if (
+        target &&
+        target.classList.contains("fixed") &&
+        target.classList.contains("bg-black")
+      ) {
+        target.classList.add("hidden");
+        document.body.style.overflow = "auto";
+      }
+    });
+
+    // Close modal with Escape key
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape") {
+        const openModals = document.querySelectorAll(
+          ".fixed.bg-black:not(.hidden)"
+        );
+        openModals.forEach((modal) => {
+          modal.classList.add("hidden");
+          document.body.style.overflow = "auto";
+        });
+      }
+    });
+  });
+
+  // Globalne funkcje galerii zdjęć
+  (window as any).changeMainImage = function (modalId: string, src: string) {
+    const mainImage = document.getElementById(
+      `mainImage-${modalId}`
+    ) as HTMLImageElement;
+    if (mainImage) {
+      mainImage.src = src;
+      updateThumbnailSelection(modalId, src);
+    }
+  };
+
+  // Funkcje nawigacji galerii
+  (window as any).nextImage = function (modalId: string) {
+    const modal = document.getElementById(modalId);
+    if (!modal) return;
+
+    const images = modal.querySelectorAll("[data-index]");
+    const mainImage = document.getElementById(
+      `mainImage-${modalId}`
+    ) as HTMLImageElement;
+    if (!mainImage || images.length === 0) return;
+
+    const currentSrc = mainImage.src;
+    let currentIndex = -1;
+
+    // Znajdź aktualny indeks
+    images.forEach((img, index) => {
+      if ((img as HTMLImageElement).src === currentSrc) {
+        currentIndex = index;
+      }
+    });
+
+    // Przejdź do następnego zdjęcia
+    const nextIndex = (currentIndex + 1) % images.length;
+    const nextImage = images[nextIndex] as HTMLImageElement;
+    if (nextImage) {
+      mainImage.src = nextImage.src;
+      updateThumbnailSelection(modalId, nextIndex);
+    }
+  };
+
+  (window as any).prevImage = function (modalId: string) {
+    const modal = document.getElementById(modalId);
+    if (!modal) return;
+
+    const images = modal.querySelectorAll("[data-index]");
+    const mainImage = document.getElementById(
+      `mainImage-${modalId}`
+    ) as HTMLImageElement;
+    if (!mainImage || images.length === 0) return;
+
+    const currentSrc = mainImage.src;
+    let currentIndex = -1;
+
+    // Znajdź aktualny indeks
+    images.forEach((img, index) => {
+      if ((img as HTMLImageElement).src === currentSrc) {
+        currentIndex = index;
+      }
+    });
+
+    // Przejdź do poprzedniego zdjęcia
+    const prevIndex = (currentIndex - 1 + images.length) % images.length;
+    const prevImage = images[prevIndex] as HTMLImageElement;
+    if (prevImage) {
+      mainImage.src = prevImage.src;
+      updateThumbnailSelection(modalId, prevIndex);
+    }
+  };
+
+  // Funkcja aktualizacji wybranej miniatury
+  function updateThumbnailSelection(modalId: string, currentIndexOrSrc: number | string) {
+    const modal = document.getElementById(modalId);
+    if (!modal) return;
+
+    const thumbnails = modal.querySelectorAll("[data-index]");
+    thumbnails.forEach((thumb, index) => {
+      const img = thumb as HTMLImageElement;
+      if (typeof currentIndexOrSrc === 'number') {
+        // Jeśli przekazano indeks
+        if (index === currentIndexOrSrc) {
+          img.classList.add("border-primary-500");
+          img.classList.remove("border-transparent");
+        } else {
+          img.classList.remove("border-primary-500");
+          img.classList.add("border-transparent");
+        }
+      } else {
+        // Jeśli przekazano src
+        if (img.src === currentIndexOrSrc) {
+          img.classList.add("border-primary-500");
+          img.classList.remove("border-transparent");
+        } else {
+          img.classList.remove("border-primary-500");
+          img.classList.add("border-transparent");
+        }
+      }
+    });
+  }
+</script> 

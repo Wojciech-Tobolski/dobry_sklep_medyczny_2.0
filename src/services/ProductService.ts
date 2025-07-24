@@ -4,205 +4,129 @@ export class ProductService {
   private static products: Product[] = [
     {
       id: "1",
-      name: "Laska inwalidzka - Kula łokciowa",
-      slug: "kula-lokciowa",
-      category: "laski",
-      originalPrice: 69.99,
-      salePrice: 45.00,
-      image: "/images/products/kula-lokciowa.jpg",
-      description: "Profesjonalna kula łokciowa z regulacją wysokości",
-      detailedDescription: "Kula łokciowa to niezbędny sprzęt ortopedyczny dla osób wymagających wsparcia podczas chodzenia. Nasza kula charakteryzuje się solidną konstrukcją z aluminium oraz ergonomicznym uchwytem pokrytym miękkim materiałem antypoślizgowym. Regulowana wysokość pozwala na idealne dopasowanie do wzrostu użytkownika, zapewniając komfort i bezpieczeństwo podczas użytkowania.",
-      features: [
-        "Regulowana wysokość",
-        "Antypoślizgowa końcówka",
-        "Ergonomiczny uchwyt",
-        "Maksymalne obciążenie: 120kg"
+      name: "Pas lędźwiowy Lumbamed Basic",
+      slug: "pas-ledzwiowy-lumbamed",
+      category: "ortezy",
+      originalPrice: 299.99,
+      salePrice: 249.99,
+      mainImage: "/images/products/lumbamed-basic.jpeg",
+      images: [
+        "/images/products/lumbamed-basic-main.jpeg",
+        "/images/products/lumbamed-basic-detail.jpeg",
+        "/images/products/lumbamed-basic.jpeg"
       ],
+      shortDescription: "Profesjonalny pas lędźwiowy do leczenia bólów kręgosłupa i stabilizacji odcinka lędźwiowego",
+      detailedDescription: "Pas lędźwiowy Lumbamed Basic to wysokiej jakości orteza przeznaczona do leczenia bólów kręgosłupa w odcinku lędźwiowym. Wykonany z oddychających materiałów, zapewnia komfort noszenia przez cały dzień. Pas wyposażony jest w system regulacji, który pozwala na idealne dopasowanie do indywidualnych potrzeb pacjenta.",
       technicalSpecs: [
-        "Materiał: Aluminium 6061",
-        "Wysokość: 65-95 cm",
-        "Waga: 0.8 kg",
-        "Maksymalne obciążenie: 120 kg",
-        "Końcówka: Gumowa, antypoślizgowa",
-        "Uchwyt: Ergonomiczny, pokryty TPR"
+        "Materiał: oddychający neopren",
+        "Szerokość: 20 cm",
+        "Wysokość: 25 cm",
+        "Rozmiary: S, M, L, XL",
+        "Waga: 350g"
       ],
       nfzRefundable: true,
       nfzRefundPercentage: 80,
       availability: "dostępny",
-      inStock: true,
-      applications: [
-        "Rehabilitacja po urazach kończyn dolnych",
-        "Wsparcie podczas chodzenia",
-        "Okres pooperacyjny",
-        "Przewlekłe schorzenia ortopedyczne"
-      ],
-      indications: [
-        "Urazy stawu skokowego",
-        "Złamania kości podudzia",
-        "Okres pooperacyjny",
-        "Przewlekłe bóle stawów"
-      ],
-      contraindications: [
-        "Niestabilność barku",
-        "Ciężkie zaburzenia równowagi",
-        "Brak siły w kończynach górnych"
-      ],
+      rentalAvailable: true,
+      rentalPrice: 15.00,
       createdAt: new Date('2024-01-15'),
       updatedAt: new Date('2024-01-15')
     },
     {
       id: "2",
-      name: "Stabilizator kostki",
-      slug: "stabilizator-kostki",
-      category: "stabilizatory",
-      originalPrice: 159.00,
-      salePrice: 118.00,
-      image: "/images/products/stabilizator-kostki.jpg",
-      description: "Stabilizator stawu skokowego z szynami bocznymi",
-      detailedDescription: "Profesjonalny stabilizator stawu skokowego zapewniający optymalne wsparcie i stabilizację podczas rehabilitacji. Wyposażony w sztywne szyny boczne oraz system sznurowania pozwalający na precyzyjne dopasowanie. Oddychający materiał zapewnia komfort podczas długotrwałego użytkowania, a anatomiczny kształt gwarantuje idealne przyleganie do ciała.",
-      features: [
-        "Sztywne szyny boczne",
-        "System sznurowania",
-        "Oddychający materiał",
-        "Rozmiary: S-XL"
+      name: "Polar Care Wave",
+      slug: "polar-care-wave",
+      category: "rehabilitacja",
+      originalPrice: 899.99,
+      salePrice: 749.99,
+      mainImage: "/images/products/polar-care-wave.jpg",
+      images: [
+        "/images/products/polar-care-wave.jpg"
       ],
+      shortDescription: "Zaawansowany system krioterapii do leczenia bólu i obrzęków",
+      detailedDescription: "Polar Care Wave to nowoczesny system krioterapii, który łączy w sobie zalety zimna i kompresji. Idealny do leczenia bólu, obrzęków i stanów zapalnych po urazach i operacjach. System automatycznie reguluje temperaturę i ciśnienie, zapewniając optymalną terapię.",
       technicalSpecs: [
-        "Materiał: Neopren + szyny aluminiowe",
-        "Rozmiary: S, M, L, XL",
-        "Wysokość: 25 cm",
-        "Sznurowanie: 8 rzędów",
-        "Szyny: Aluminiowe, regulowane",
-        "Zapięcie: Velcro + sznurówki"
+        "Temperatura: 5-15°C",
+        "Ciśnienie: regulowane",
+        "Czas pracy: do 6 godzin",
+        "Zasilanie: baterie lub sieć",
+        "Waga: 2.5 kg"
       ],
       nfzRefundable: true,
       nfzRefundPercentage: 70,
-      availability: "na zamówienie",
-      inStock: false,
-      applications: [
-        "Stabilizacja po urazach stawu skokowego",
-        "Rehabilitacja po skręceniach",
-        "Wsparcie podczas aktywności sportowej",
-        "Przewlekła niestabilność stawu"
-      ],
-      indications: [
-        "Skręcenia stawu skokowego",
-        "Niestabilność stawu",
-        "Okres rehabilitacji",
-        "Aktywność sportowa"
-      ],
-      contraindications: [
-        "Otwarte rany w okolicy stawu",
-        "Alergia na neopren",
-        "Ciężkie zaburzenia krążenia"
-      ],
+      availability: "dostępny",
+      rentalAvailable: true,
+      rentalPrice: 25.00,
       createdAt: new Date('2024-01-20'),
       updatedAt: new Date('2024-01-20')
     },
     {
       id: "3",
-      name: "Proteza nogi - Stopka Sach",
-      slug: "proteza-stopka-sach",
-      category: "protezy",
-      originalPrice: 2199.00,
-      salePrice: 1890.00,
-      image: "/images/products/stopka-sach.jpg",
-      description: "Stopka protezowa typu SACH do chodzenia",
-      detailedDescription: "Stopka protezowa typu SACH (Solid Ankle Cushioned Heel) to zaawansowane rozwiązanie dla osób po amputacji kończyny dolnej. Charakteryzuje się naturalną amortyzacją oraz wytrzymałą konstrukcją, która zapewnia komfort podczas chodzenia. Specjalna budowa pięty pozwala na naturalny ruch stopy, a elastyczna podeszwa zapewnia odpowiednią przyczepność na różnych powierzchniach.",
-      features: [
-        "Wytrzymała konstrukcja",
-        "Naturalna amortyzacja",
-        "Dostępne rozmiary: 22-30",
-        "Waga do 125kg"
+      name: "Stabilizator Achimed",
+      slug: "stabilizator-achimed",
+      category: "stabilizatory",
+      originalPrice: 399.99,
+      salePrice: 329.99,
+      mainImage: "/images/products/achimed-side.jpeg",
+      images: [
+        "/images/products/achimed-both-feet.jpg",
+        "/images/products/achimed-detail.jpeg",
+        "/images/products/achimed-side-view.jpeg",
+        "/images/products/achimed-side.jpeg"
       ],
+      shortDescription: "Stabilizator stawu skokowego z zaawansowaną technologią",
+      detailedDescription: "Stabilizator Achimed to profesjonalny sprzęt ortopedyczny przeznaczony do stabilizacji stawu skokowego. Wykonany z najwyższej jakości materiałów, zapewnia optymalne wsparcie podczas rehabilitacji i aktywności sportowej.",
       technicalSpecs: [
-        "Typ: SACH (Solid Ankle Cushioned Heel)",
-        "Rozmiary: 22-30 (EU)",
-        "Maksymalne obciążenie: 125 kg",
-        "Materiał: Poliuretan + włókno węglowe",
-        "Wysokość obcasa: 2-4 cm",
-        "Kąt stawu: Stały, 90°"
+        "Materiał: neopren + szyny aluminiowe",
+        "Rozmiary: S, M, L, XL",
+        "Wysokość: 30 cm",
+        "Sznurowanie: 10 rzędów",
+        "Szyny: regulowane"
       ],
       nfzRefundable: true,
-      nfzRefundPercentage: 90,
+      nfzRefundPercentage: 80,
       availability: "dostępny",
-      inStock: true,
-      applications: [
-        "Amputacje kończyny dolnej",
-        "Rehabilitacja po amputacji",
-        "Codzienna aktywność",
-        "Chodzenie po różnych powierzchniach"
-      ],
-      indications: [
-        "Amputacja na poziomie stopy",
-        "Amputacja na poziomie podudzia",
-        "Potrzeba stabilnego wsparcia",
-        "Aktywny tryb życia"
-      ],
-      contraindications: [
-        "Brak odpowiedniego kikuta",
-        "Ciężkie zaburzenia równowagi",
-        "Brak siły w kończynach górnych"
-      ],
+      rentalAvailable: false,
       createdAt: new Date('2024-01-10'),
       updatedAt: new Date('2024-01-10')
     },
     {
       id: "4",
-      name: "Balkonik czterokołowy - Rollator",
-      slug: "balkonik-rollator",
-      category: "balkoniki",
-      originalPrice: 459.00,
-      salePrice: 379.00,
-      image: "/images/products/rollator.jpg",
-      description: "Aluminiowy balkonik rehabilitacyjny z kołami",
-      detailedDescription: "Balkonik czterokołowy to idealne rozwiązanie dla osób wymagających wsparcia podczas chodzenia, ale zachowujących zdolność do samodzielnego poruszania się. Składana konstrukcja pozwala na łatwy transport i przechowywanie. Hamulce przy rączkach zapewniają bezpieczeństwo, a siedzisko z koszykiem umożliwia odpoczynek podczas spacerów.",
-      features: [
-        "Składana konstrukcja",
-        "Hamulce przy rączkach",
-        "Siedzisko i koszyk",
-        "Regulowana wysokość"
+      name: "Theragun Elite",
+      slug: "theragun-elite",
+      category: "masaż",
+      originalPrice: 1299.99,
+      salePrice: 1099.99,
+      mainImage: "/images/products/theragun-elite.jpg",
+      images: [
+        "/images/products/theragun-elite.jpg"
       ],
+      shortDescription: "Profesjonalny masażer wibracyjny do terapii mięśni",
+      detailedDescription: "Theragun Elite to zaawansowany masażer wibracyjny, który wykorzystuje technologię percussive therapy do głębokiego masażu mięśni. Idealny do terapii bólu, regeneracji mięśni i poprawy mobilności. Urządzenie oferuje 5 prędkości i 4 końcówki do różnych zastosowań.",
       technicalSpecs: [
-        "Materiał: Aluminium 6061",
-        "Wysokość rączek: 80-95 cm",
-        "Szerokość: 60 cm",
-        "Waga: 8.5 kg",
-        "Maksymalne obciążenie: 150 kg",
-        "Koła: 20 cm, poliuretanowe"
+        "Prędkości: 5 poziomów (1750-2400 uderzeń/min)",
+        "Głębokość: 16 mm",
+        "Czas pracy: do 2.5 godziny",
+        "Zasilanie: bateria litowo-jonowa",
+        "Waga: 1.5 kg"
       ],
-      nfzRefundable: true,
-      nfzRefundPercentage: 80,
+      nfzRefundable: false,
+      nfzRefundPercentage: 0,
       availability: "dostępny",
-      inStock: true,
-      applications: [
-        "Rehabilitacja po urazach",
-        "Wsparcie dla osób starszych",
-        "Przewlekłe schorzenia ortopedyczne",
-        "Okres pooperacyjny"
-      ],
-      indications: [
-        "Osłabienie mięśni kończyn dolnych",
-        "Problemy z równowagą",
-        "Przewlekłe bóle stawów",
-        "Okres rehabilitacji"
-      ],
-      contraindications: [
-        "Ciężkie zaburzenia równowagi",
-        "Brak siły w kończynach górnych",
-        "Niestabilność barków"
-      ],
+      rentalAvailable: true,
+      rentalPrice: 35.00,
       createdAt: new Date('2024-01-25'),
       updatedAt: new Date('2024-01-25')
     }
   ];
 
   static getAllProducts(): Product[] {
-    return this.products;
+    return [...this.products];
   }
 
   static getFeaturedProducts(limit: number = 4): Product[] {
     return this.products
-      .filter(product => product.availability === 'dostępny')
+      .filter(product => product.availability === "dostępny")
       .slice(0, limit);
   }
 
@@ -299,11 +223,10 @@ export class ProductService {
     productCount: number;
   }> {
     const categories = [
-      { id: 'laski', name: 'Laski i kule', slug: 'laski' },
+      { id: 'ortezy', name: 'Ortezy', slug: 'ortezy' },
       { id: 'stabilizatory', name: 'Stabilizatory', slug: 'stabilizatory' },
-      { id: 'protezy', name: 'Protezy', slug: 'protezy' },
-      { id: 'wozki', name: 'Wózki inwalidzkie', slug: 'wozki' },
-      { id: 'balkoniki', name: 'Balkoniki', slug: 'balkoniki' }
+      { id: 'rehabilitacja', name: 'Rehabilitacja', slug: 'rehabilitacja' },
+      { id: 'masaż', name: 'Masaż', slug: 'masaż' }
     ];
 
     return categories.map(category => ({
