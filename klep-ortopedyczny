@@ -1,0 +1,10 @@
+[33m1db19f7[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m Poprawiono kolorystykę refundacji NFZ - różowy header, tylko ikona różowa w przycisku produktów, różowy telefon
+[33mfcc895f[m Zmieniono kolorystykę strony refundacji NFZ - ciemno granatowy header, niebieskie elementy, różowy przycisk produktów
+[33m705b432[m Usunięto debug logi - czysta wersja
+[33mb0b1bf0[m Dodano pełną funkcjonalność sklepu ortopedycznego - działająca wersja bez zdjęć
+[33m0a5875d[m  Naprawione strzałki galerii zdjęć - globalne funkcje nawigacji
+[33mccaafcf[m  Naprawione modale produktów - unikalne ID dla każdego modala
+[33mdcf1f61[m  Działające opinie, mapy i produkty - kompletny sklep ortopedyczny
+[33m5ca34a4[m[33m ([m[1;33mtag: v1.0.0[m[33m)[m  Działający szablon sklepu ortopedycznego - kompletny projekt
+[33m86b92f3[m Initial commit - Dobry Sklep Medyczny 2.0
+[33m61b05f5[m Initial commit from Astro
