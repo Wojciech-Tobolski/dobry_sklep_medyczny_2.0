@@ -1,5 +1,5 @@
 ---
-import type { Product } from '../../types/Product';
+import type { Product } from "../../types/Product";
 
 interface Props {
   product: Product;
@@ -7,24 +7,27 @@ interface Props {
   viewMode?: "grid" | "list";
 }
 
-const { product, slug, viewMode = 'grid' } = Astro.props;
-const isListView = viewMode === 'list';
+const { product, slug, viewMode = "grid" } = Astro.props;
+const isListView = viewMode === "list";
 
 const nfzInfo = {
   isRefundable: product.nfzRefundable,
   percentage: product.nfzRefundPercentage || 0,
-  refundAmount: product.nfzRefundable && product.nfzRefundPercentage 
-    ? Math.round((product.salePrice * product.nfzRefundPercentage) / 100) 
-    : 0,
-  patientCost: product.nfzRefundable && product.nfzRefundPercentage 
-    ? product.salePrice - Math.round((product.salePrice * product.nfzRefundPercentage) / 100)
-    : product.salePrice
+  refundAmount:
+    product.nfzRefundable && product.nfzRefundPercentage
+      ? Math.round((product.salePrice * product.nfzRefundPercentage) / 100)
+      : 0,
+  patientCost:
+    product.nfzRefundable && product.nfzRefundPercentage
+      ? product.salePrice -
+        Math.round((product.salePrice * product.nfzRefundPercentage) / 100)
+      : product.salePrice,
 };
 ---
 
 <div
-  class={`bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden ${
-    isListView ? "flex" : ""
+  class={`bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden h-full flex flex-col ${
+    isListView ? "flex-row" : ""
   }`}
   data-view-mode={viewMode}
 >
@@ -38,40 +41,50 @@ const nfzInfo = {
       class={`${isListView ? "h-48" : "h-72"} w-full object-contain bg-gray-50`}
       loading="lazy"
     />
-    
+
     <!-- Availability Badge -->
     <div class="absolute top-3 left-3">
-      <span class={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium ${
-        product.availability === "dostępny" 
-          ? "bg-green-100 text-green-800" 
-          : "bg-red-100 text-red-800"
-      }`}>
+      <span
+        class={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium ${
+          product.availability === "dostępny"
+            ? "bg-green-100 text-green-800"
+            : "bg-red-100 text-red-800"
+        }`}
+      >
         {product.availability === "dostępny" ? "Dostępny" : "Niedostępny"}
       </span>
     </div>
 
     <!-- NFZ Badge -->
-    {product.nfzRefundable && (
-      <div class="absolute top-3 right-3">
-        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-          NFZ {product.nfzRefundPercentage}%
-        </span>
-      </div>
-    )}
+    {
+      product.nfzRefundable && (
+        <div class="absolute top-3 right-3">
+          <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+            NFZ {product.nfzRefundPercentage}%
+          </span>
+        </div>
+      )
+    }
 
     <!-- Rental Badge -->
-    {product.rentalAvailable && (
-      <div class="absolute bottom-3 left-3">
-        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-purple-100 text-purple-800">
-          Wynajem {product.rentalPrice} zł/dzień
-        </span>
-      </div>
-    )}
+    {
+      product.rentalAvailable && (
+        <div class="absolute bottom-3 left-3">
+          <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-purple-100 text-purple-800">
+            Wynajem {product.rentalPrice} zł/dzień
+          </span>
+        </div>
+      )
+    }
   </div>
 
   <!-- Product Info -->
-  <div class={`product-info ${isListView ? "flex-1 p-6" : "p-6"}`}>
-    <div class={`${isListView ? "flex flex-col h-full" : ""}`}>
+  <div
+    class={`product-info ${isListView ? "flex-1 p-6" : "p-6"} flex flex-col h-full`}
+  >
+    <div
+      class={`${isListView ? "flex flex-col h-full" : "flex flex-col h-full"}`}
+    >
       <h3
         class={`font-bold text-gray-800 mb-3 ${isListView ? "text-xl" : "line-clamp-2 h-14"}`}
       >
@@ -84,29 +97,43 @@ const nfzInfo = {
           <span class="text-2xl font-bold text-primary-500">
             {product.salePrice?.toFixed(2)} zł
           </span>
-          {product.originalPrice && product.originalPrice > product.salePrice && (
-            <span class="text-lg text-gray-500 line-through">
-              {product.originalPrice.toFixed(2)} zł
-            </span>
-          )}
+          {
+            product.originalPrice &&
+              product.originalPrice > product.salePrice && (
+                <span class="text-lg text-gray-500 line-through">
+                  {product.originalPrice.toFixed(2)} zł
+                </span>
+              )
+          }
         </div>
 
         {/* NFZ Refund Info */}
-        {product.nfzRefundable && (
-          <div class="mt-2 text-sm text-gray-600">
-            <span class="font-medium">Z NFZ: {nfzInfo.patientCost.toFixed(2)} zł</span>
-            <span class="text-gray-500 ml-2">(refundacja: {nfzInfo.refundAmount.toFixed(2)} zł)</span>
-          </div>
-        )}
+        {
+          product.nfzRefundable ? (
+            <div class="mt-2 text-sm text-gray-600">
+              <span class="font-medium">
+                Z NFZ: {nfzInfo.patientCost.toFixed(2)} zł
+              </span>
+              <span class="text-gray-500 ml-2">
+                (refundacja: {nfzInfo.refundAmount.toFixed(2)} zł)
+              </span>
+            </div>
+          ) : (
+            <div class="mt-2 text-sm text-gray-600">
+              <span class="text-transparent">Z NFZ: 0.00 zł</span>
+              <span class="text-transparent ml-2">(refundacja: 0.00 zł)</span>
+            </div>
+          )
+        }
       </div>
 
       <!-- Description -->
-      <p class="text-gray-600 text-sm mb-6 line-clamp-3">
+      <p class="text-gray-600 text-sm mb-6 line-clamp-3 flex-grow">
         {product.shortDescription}
       </p>
 
       <!-- Action Button -->
-      <div class={`${isListView ? "mt-auto" : ""}`}>
+      <div class="mt-auto">
         <button
           class="w-full bg-primary-500 text-white py-3 px-6 rounded-lg hover:bg-primary-600 transition-colors font-semibold product-detail-btn"
           data-modal-id={`modal-${slug}`}
@@ -116,4 +143,5 @@ const nfzInfo = {
       </div>
     </div>
   </div>
-</div> 
+</div>
+

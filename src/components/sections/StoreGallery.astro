@@ -1,63 +1,47 @@
 ---
 const galleryImages = [
-  { src: '/images/store-photos/store-interior-1.jpeg', alt: 'Wnętrze sklepu - główny widok', featured: true },
-  { src: '/images/store-photos/store-interior-2.jpeg', alt: 'Jasne wnętrze z oknem' },
-  { src: '/images/store-photos/store-interior-3.jpeg', alt: 'Widok na wejście' },
-  { src: '/images/store-photos/store-interior-4.jpg', alt: 'Strefa przymierzalni' },
-  { src: '/images/store-photos/store-shelves-1.jpeg', alt: 'Produkty sportowe THE RUN' },
-  { src: '/images/store-photos/store-shelves-2.jpeg', alt: 'Półki z produktami' },
-  { src: '/images/store-photos/store-products.jpeg', alt: 'Produkty rehabilitacyjne' },
-  { src: '/images/store-photos/store-view.jpeg', alt: 'Widok przez okno' }
+  { src: "/images/store-photos/store-view.jpeg", alt: "Widok przez okno" },
+  {
+    src: "/images/store-photos/store-interior-2.jpeg",
+    alt: "Jasne wnętrze z oknem",
+  },
+  {
+    src: "/images/store-photos/store-interior-4.jpg",
+    alt: "Strefa przymierzalni",
+  },
+  {
+    src: "/images/store-photos/store-shelves-2.jpeg",
+    alt: "Półki z produktami",
+  },
+  {
+    src: "/images/store-photos/store-products.jpeg",
+    alt: "Produkty rehabilitacyjne",
+  },
+  {
+    src: "/images/store-photos/store-interior-1.jpeg",
+    alt: "Wnętrze sklepu - główny widok",
+  },
 ];
-
-const featuredImage = galleryImages.find(img => img.featured);
-const otherImages = galleryImages.filter(img => !img.featured);
 ---
 
 <section class="py-16">
   <div class="container mx-auto px-4">
     <h2 class="text-3xl font-bold text-center mb-12">Nasz sklep</h2>
 
-    <div class="grid lg:grid-cols-3 gap-6">
-      {featuredImage && (
-        <div class="lg:row-span-2">
-          <div class="relative h-full rounded-2xl overflow-hidden shadow-xl group cursor-pointer">
-            <img 
-              src={featuredImage.src}
-              alt={featuredImage.alt}
-              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-              style="min-height: 600px"
-              loading="lazy"
-            />
-          </div>
-        </div>
-      )}
-      
-      <div class="lg:col-span-2 grid sm:grid-cols-2 gap-6">
-        {otherImages.slice(0, 4).map((image) => (
-          <div class="relative rounded-xl overflow-hidden shadow-lg group cursor-pointer">
-            <img 
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {
+        galleryImages.map((image) => (
+          <div class="relative rounded-2xl overflow-hidden shadow-xl group cursor-pointer">
+            <img
               src={image.src}
               alt={image.alt}
-              class="w-full h-[280px] object-cover group-hover:scale-105 transition-transform duration-500"
+              class="w-full h-auto object-contain bg-gray-100 group-hover:scale-105 transition-transform duration-500"
+              style="aspect-ratio: 3/4;"
               loading="lazy"
             />
           </div>
-        ))}
-      </div>
-    </div>
-
-    <div class="grid sm:grid-cols-3 gap-6 mt-6">
-      {otherImages.slice(4).map((image) => (
-        <div class="relative rounded-xl overflow-hidden shadow-lg group cursor-pointer">
-          <img 
-            src={image.src}
-            alt={image.alt}
-            class="w-full h-[320px] object-cover group-hover:scale-105 transition-transform duration-500"
-            loading="lazy"
-          />
-        </div>
-      ))}
+        ))
+      }
     </div>
   </div>
-</section> 
+</section>
