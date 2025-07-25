@@ -14,18 +14,72 @@ import ProductCarousel from "../components/sections/ProductCarousel.astro";
   <section class="bg-primary-500 text-white py-20">
     <div class="container mx-auto px-4">
       <div class="flex flex-col lg:flex-row items-center gap-12">
-        <div class="lg:w-1/2">
+        <div class="lg:w-2/3">
           <div class="bg-white/20 inline-block px-4 py-2 rounded-full mb-6">
             <span class="text-sm font-semibold">Sklep Ortopedyczny</span>
           </div>
           <h1 class="text-4xl lg:text-6xl font-bold mb-6 leading-tight">
             Profesjonalny sprzęt ortopedyczny
           </h1>
-          <p class="text-xl mb-8 opacity-90 leading-relaxed">
-            Oferujemy szeroki wybór sprzętu rehabilitacyjnego i ortopedycznego
-            najwyższej jakości. Współpracujemy z NFZ - zapewniamy refundacje i
-            doradztwo specjalistyczne.
-          </p>
+          <div class="space-y-4 mb-8">
+            <p class="text-xl opacity-90 leading-relaxed">
+              Oferujemy szeroki wybór sprzętu rehabilitacyjnego i ortopedycznego
+              najwyższej jakości. Współpracujemy z NFZ - zapewniamy refundacje i
+              doradztwo specjalistyczne.
+            </p>
+            <p class="text-lg opacity-85 leading-relaxed">
+              Nasz zespół wykwalifikowanych specjalistów zapewnia profesjonalną
+              i przyjazną obsługę, pomagając w doborze odpowiedniego sprzętu
+              medycznego. Oferujemy kompleksowe doradztwo oraz szeroki
+              asortyment produktów renomowanych marek.
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+              <div class="flex items-center space-x-3">
+                <svg
+                  class="w-6 h-6 text-white/80"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                  ></path>
+                </svg>
+                <span class="text-white/90">Profesjonalne doradztwo</span>
+              </div>
+              <div class="flex items-center space-x-3">
+                <svg
+                  class="w-6 h-6 text-white/80"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                  ></path>
+                </svg>
+                <span class="text-white/90">Przyjazna obsługa</span>
+              </div>
+              <div class="flex items-center space-x-3">
+                <svg
+                  class="w-6 h-6 text-white/80"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                  ></path>
+                </svg>
+                <span class="text-white/90">Refundacje NFZ</span>
+              </div>
+              <div class="flex items-center space-x-3">
+                <svg
+                  class="w-6 h-6 text-white/80"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                  ></path>
+                </svg>
+                <span class="text-white/90">Wynajem sprzętu</span>
+              </div>
+            </div>
+          </div>
           <div class="flex flex-col sm:flex-row gap-4">
             <a
               href="/produkty"
@@ -61,32 +115,14 @@ import ProductCarousel from "../components/sections/ProductCarousel.astro";
             </div>
           </div>
         </div>
-        <div class="lg:w-1/2">
-          <div class="bg-white/10 rounded-2xl p-8 backdrop-blur-sm">
-            <div class="bg-white rounded-xl p-6 shadow-2xl">
-              <div class="text-center">
-                <div
-                  class="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4"
-                >
-                  <svg
-                    class="w-8 h-8 text-primary-500"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-                      clip-rule="evenodd"></path>
-                  </svg>
-                </div>
-                <h3 class="text-lg font-semibold text-gray-800 mb-2">
-                  Szeroki wybór produktów
-                </h3>
-                <p class="text-gray-600 text-sm">
-                  Laski, stabilizatory, protezy, wózki i balkoniki
-                </p>
-              </div>
-            </div>
+        <div class="lg:w-1/3">
+          <div class="bg-white/10 rounded-2xl p-6 backdrop-blur-sm">
+            <img
+              src="/images/store-photos/store-interior-2.jpeg"
+              alt="Wnętrze Dobry Sklep Medyczny"
+              class="w-full h-[500px] object-cover object-center rounded-xl shadow-2xl"
+              loading="lazy"
+            />
           </div>
         </div>
       </div>
@@ -123,9 +159,9 @@ import ProductCarousel from "../components/sections/ProductCarousel.astro";
         </p>
       </div>
 
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+      <div class="grid grid-cols-1 lg:grid-cols-4 gap-8 items-start">
         <!-- Informacje kontaktowe -->
-        <div class="bg-white rounded-2xl p-8 shadow-lg">
+        <div class="bg-white rounded-2xl p-8 shadow-lg lg:col-span-1">
           <h3 class="text-2xl font-bold text-red-600 mb-6">
             Dobry Sklep Medyczny
           </h3>
@@ -232,8 +268,20 @@ import ProductCarousel from "../components/sections/ProductCarousel.astro";
           </div>
         </div>
 
-        <!-- Mapa Google -->
+        <!-- Zdjęcie sklepu -->
         <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
+          <img
+            src="/images/store-photos/store-exterior.jpeg"
+            alt="Dobry Sklep Medyczny - wejście do sklepu"
+            class="w-full h-[600px] object-cover object-center"
+            loading="lazy"
+          />
+        </div>
+
+        <!-- Mapa Google -->
+        <div
+          class="bg-white rounded-2xl shadow-lg overflow-hidden lg:col-span-2"
+        >
           <iframe
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2434.1234567890123!2d16.9255!3d52.4064!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47045b7c7c7c7c7c%3A0x7c7c7c7c7c7c7c7c!2sD%C4%85browskiego%2033%2C%2060-842%20Pozna%C5%84!5e0!3m2!1spl!2spl!4v1234567890123"
             width="100%"
